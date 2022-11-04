@@ -1,0 +1,131 @@
+.transaction {
+  width: 100%;
+  height: max-content;
+}
+
+.transaction--header,
+.transaction--body {
+  padding: 4vw;
+}
+
+.transaction--header {
+  padding-block-end: 1vw;
+}
+
+.transaction--body {
+  padding-block-start: 1vw;
+  padding-block-end: 0;
+}
+
+.user-info__name {
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: capitalize;
+
+  margin-block-end: 0.5rem;
+}
+
+.user-email {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--primary-black-100);
+}
+
+.transaction--body {
+  display: flex;
+  flex-flow: row wrap-reverse;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.transaction--form,
+.transaction--review {
+  width: min(400px, 90%);
+  flex-grow: 1;
+
+  padding: 2rem;
+}
+
+.transaction--form {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 1rem;
+
+  padding-inline-start: 0;
+  padding-block-start: 1vw;
+}
+
+.transaction--form .rounded-input {
+  width: min(350px, 90%);
+}
+
+.transaction-type {
+  font-size: 1rem;
+  font-weight: 800;
+  text-transform: capitalize;
+
+  color: var(--primary-green-800);
+}
+
+.transaction--review {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 1ch;
+
+  background-color: #fff;
+  border-radius: 10px;
+
+  box-shadow: 0px 1px 5px 0px hsl(0, 0%, 0%, 0.1);
+}
+
+.transaction-type__review {
+  margin-block-end: 1rem;
+}
+
+.transaction-details {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+
+  line-height: 1.5ch;
+}
+
+.detail-type,
+.detail-data {
+  flex-basis: calc(90% / 2);
+}
+.button-space-buffer {
+  flex-grow: 1;
+
+  font-size: 0.7rem;
+  color: var(--primary-green-400);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.detail-data,
+.button-space-buffer {
+  text-align: right;
+}
+.transaction-button {
+  align-self: center;
+  margin-block-start: 2rem;
+}
+
+.account-switch {
+  cursor: pointer;
+
+  font-size: 0.7rem;
+  color: var(--primary-green-400);
+
+  margin-inline-start: 0.25rem;
+  filter: drop-shadow(0px 1px 1px hsl(0, 0%, 0%, 0.25));
+
+  transition: filter 250ms ease;
+}
+.account-switch:hover {
+  filter: drop-shadow(0px 1px 1px hsl(0, 0%, 0%, 0.25)) brightness(1.2);
+}

@@ -1,0 +1,13 @@
+.register {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+
+  width: min(300px, 90%);
+  min-height: 75vh;
+  margin: auto;
+
+  font-size: 1rem;
+}

@@ -1,0 +1,162 @@
+:root {
+  --primary-green-400: #66a659;
+  --primary-green-800: #041a00;
+  --secondary-green-100: #e5eef0;
+  --secondary-red-400: #b21a1a;
+  --primary-black-100: hsl(0, 0%, 50%, 1);
+  --primary-black-300: rgba(31, 31, 31, 1);
+  --primary-black-700: hsl(0, 0%, 0%, 1);
+
+  --root-padding-buffer: calc(70px + 1vw);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body,
+button,
+input,
+a,
+span,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Raleway";
+}
+
+a {
+  text-decoration: none;
+}
+
+button,
+a {
+  cursor: pointer;
+}
+
+body {
+  background-color: var(--secondary-green-100);
+}
+
+#root {
+  height: 100vh;
+  width: 100%;
+
+  padding-inline-start: var(--root-padding-buffer);
+}
+
+.sr-only {
+  position: absolute;
+  top: -200%;
+  left: -200%;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+}
+
+.green-button {
+  background-color: var(--primary-green-400);
+  border-radius: 100px;
+  border: 0;
+  padding-block: 0.6rem;
+  padding-inline: 1.75rem;
+
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: capitalize;
+
+  filter: drop-shadow(0px 2px 2px hsl(0, 0%, 0%, 0.25));
+
+  transition: filter 250ms ease;
+}
+
+.green-button:hover {
+  filter: drop-shadow(0px 2px 1px hsl(0, 0%, 0%, 0.25)) brightness(1.2);
+}
+
+.rounded-input {
+  border-radius: 100px;
+  border: 0;
+  padding: 0.8rem;
+
+  width: 100%;
+  color: var(--primary-black-700);
+}
+.rounded-input::placeholder {
+  text-transform: capitalize;
+
+  color: var(--primary-black-100);
+  opacity: 0.65;
+}
+.rounded-input:focus {
+  outline: 1px solid hsl(0, 0%, 10%, 0.25);
+}
+
+.main-nav {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+
+  font-size: clamp(1rem, 10vw, 1.75rem);
+  color: #fff;
+
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+
+  height: 100vh;
+  min-height: 500px;
+  border-radius: 0 15px 15px 0;
+
+  background-color: var(--primary-black-300);
+
+  filter: drop-shadow(2px 0px 1px hsl(0, 0%, 0%, 0.5));
+}
+
+.main-nav ul {
+  list-style: none;
+  flex-grow: 1;
+
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+.main-nav ul li a,
+.nav--logout {
+  transition: color 250ms ease;
+}
+.main-nav ul li a:active,
+.nav--logout:active {
+  scale: 0.9;
+}
+
+.main-nav ul li a:hover,
+.nav--logout:hover {
+  color: var(--primary-green-400);
+}
+
+.main-nav ul li a {
+  color: inherit;
+}
+
+.nav--logout {
+  margin-block-start: auto;
+
+  color: inherit;
+  font-size: inherit;
+
+  background: transparent;
+  border: 0;
+}
