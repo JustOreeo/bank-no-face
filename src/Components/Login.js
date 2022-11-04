@@ -1,132 +1,103 @@
-import "../assets/Login.css";
-import React, { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../Auth";
-export default function Login({ Userlist }) {
-  const emailRef = useRef();
-  const passRef = useRef();
-  let email;
-  let password;
-  const [emailError, setEmailError] = useState("");
-  const [passError, setPassError] = useState("");
-  const [loginError, setLoginError] = useState("");
-  //for auth
-  const auth = useAuth();
-  const userData = auth.user;
-  const navigate = useNavigate();
-  //redirect if logged in already
-  if (userData.isLoggedIn) {
-    if (userData.accountType === "admin") {
-      navigate("/dashboard/admin");
-    }
-    if (userData.accountType === "user") {
-      navigate("/dashboard/account");
-    }
-  }
+import React, { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import '../assets/Login.css';
 
-  //Functions for Login Validations
-  function handleEmail() {
-    email = emailRef.current.value;
+const Login = () => {
+    const navigate = useNavigate();
+    const [ input, setInput ] = useState({
+        email: "",
+        password: "",
+    });
+    const [emailError, setEmailError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
+    const [loginError, setLoginError] = useState('');
+    const [ isAvailable, setIsAvailable ] = useState([true, true]);
 
-    if (email === "") {
-      setEmailError("Email is required");
-      emailRef.current.classList.add("error");
-    } else {
-      setEmailError("");
-      emailRef.current.classList.remove("error");
-    }
-    setLoginError("");
-  }
-  function handlePass() {
-    password = passRef.current.value;
+    const handleSearchCredential = () => {
+        const loggedUser = JSON.parse(localStorage.getItem("users"));
+        let found = false;
 
-    if (password === "") {
-      setPassError("Password is required");
-      passRef.current.classList.add("error");
-    } else {
-      setPassError("");
-      passRef.current.classList.remove("error");
-    }
-    setLoginError("");
-  }
-  function handleLogin(e) {
-    e.preventDefault();
+        // Loop through all the users in localStorage then set true each time it satisfies the requirement
+        loggedUser.forEach(user => {
+            console.log("User: ", user);
+            console.log("Inpute Email: ", input.email);
+            console.log("Inpute Password: ", input.password);
+            console.log("Bool?", user.email === input.email && user.password === input.password)
+            if(user.email === input.email) {
+                found = true;
+                setIsAvailable([true, false])
+                if (user.password === input.password) {
+                    localStorage.setItem("loggedIn", true);
+                    setIsAvailable([true, true])
+                }
+            } else {
+                return isAvailable;
+            }
+        })
 
-    email = emailRef.current.value;
-    password = passRef.current.value;
-    let account;
-    if (email === "") {
-      setEmailError("Email is required");
-      emailRef.current.classList.add("error");
-    }
-    if (password === "") {
-      setPassError("Password is required");
-      passRef.current.classList.add("error");
-    }
-    if (email !== "" && password !== "") {
-      account = Userlist.find((users) => users.email === email);
-      console.log(account);
-      if (account && email === account.email && password === account.password) {
-        setLoginError("Success");
-        auth.login(account);
-      } else {
-        setLoginError("Invalid email/password");
-        passRef.current.classList.remove("error");
-        emailRef.current.classList.remove("error");
-      }
-    }
-  }
-  function addUser() {
-    const storedUsers = JSON.parse(localStorage.getItem("storedUsers"));
-    console.log("storedusers");
-    console.log(storedUsers);
-    if (storedUsers) {
-      storedUsers.push({
-        id: 2,
-        name: "Test User",
-        email: "user@gmail.com",
-        password: "01234567",
-        accountType: "user",
-        balance: 0,
-      });
-      localStorage.setItem("storedUsers", JSON.stringify(storedUsers));
-    }
-  }
-  function delUser() {
-    window.localStorage.removeItem("storedUsers");
-  }
+        if(!found)
+            setIsAvailable([false, true]);
 
-  return (
-    <div className="container">
-      <form onSubmit={handleLogin} className="container" noValidate>
-        <input
-          type="email"
-          ref={emailRef}
-          value="admin@gmail.com"
-          placeholder="Email"
-          className="input"
-          onChange={handleEmail}
-        />
-        <span className="errorMsg">{emailError}</span>
-        <input
-          type="password"
-          ref={passRef}
-          value="01234567"
-          placeholder="Password"
-          className="input"
-          onChange={handlePass}
-        />
-        <span className="errorMsg">{passError}</span>
-        <span className="errorMsg">{loginError}</span>
-        <button type="submit" className="btn">
-          Login
-        </button>
-        <br></br>
-      </form>
-      <button onClick={addUser}>Add one user for testing</button>
-      <br></br>
-      <button onClick={delUser}>Delete storedUsers</button>
-      <br></br>
-    </div>
-  );
+        return found;
+    }
+    
+    // Function that handles user login
+    const handleLogin = (e) => {
+        e.preventDefault();
+        const loggedUser = JSON.parse(localStorage.getItem("users"));
+        console.log(loggedUser);
+        console.log("CHECK: ", handleSearchCredential());
+        
+        if( input.email === ""){
+            setEmailError("Email is required")
+            //emailRef.current.classList.add("error")
+        }
+        if( input.password === ""){
+            setPasswordError("Password is required")
+            //passRef.current.classList.add("error")
+        }
+        if ( handleSearchCredential() ) {
+            navigate("/dashboard")
+        } else {
+            setLoginError("Invalid email/password")
+        }
+    }
+    return (
+        <div>
+        <form onSubmit={handleLogin} className='login-container' noValidate> 
+            <input 
+                name="email"
+                type="email" 
+                value={input.email}
+                placeholder='Email' 
+                className="input" 
+                onChange={(e) => {
+                    setInput({
+                        ...input,
+                        [e.target.name]: e.target.value,
+                    })
+                }}
+            />
+            <span className="errorMsg">{emailError}</span>
+            <input 
+                name="password"
+                type="password" 
+                value={input.password}
+                placeholder='Password' 
+                className="input" 
+                onChange={(e) => {
+                    setInput({
+                        ...input,
+                        [e.target.name]: e.target.value,
+                    })
+                }}
+            />
+            {/* <span className="errorMsg">{passError}</span> */}
+            <span className="errorMsg">{loginError}</span>
+            <button type="submit" className="btn">Login</button>  
+        </form>
+        </div>
+    )
 }
+
+export default Login;
