@@ -1,3 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  font-family: 'Raleway';
+ 
+}
+
 :root {
   --primary-green-400: #66a659;
   --primary-green-800: #041a00;
@@ -167,3 +177,4 @@ body {
   color: #fff;
   background-color: var(--primary-black-100);
 }
+
