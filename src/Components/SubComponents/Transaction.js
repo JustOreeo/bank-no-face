@@ -45,7 +45,12 @@ export default function Transaction(props) {
             Enter
           </button>
         </div>
-        <div className="transaction--review">
+        <div
+          className="transaction--review"
+          style={{
+            display: props.isSubmitTransactionButtonDisabled ? "none" : "block",
+          }}
+        >
           <p className="transaction-type__review">
             Review and{" "}
             <span className="transaction-type">{props.transactionType}</span>
