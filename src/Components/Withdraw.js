@@ -30,7 +30,7 @@ export default function Withdraw() {
 
   function enterWithdraw() {
     const inputValue = parseInt(document.querySelector(`#withdraw`).value);
-    if (!inputValue) {
+    if (!inputValue || inputValue < 0) {
       setIsDisabled(true);
       disableButton("submitConfirm");
       setReviewInputAmount(0);

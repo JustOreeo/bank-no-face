@@ -30,7 +30,7 @@ export default function Transfer() {
 
   function enterTransfer() {
     const inputValue = parseInt(document.querySelector(`#transfer`).value);
-    if (!inputValue) {
+    if (!inputValue || inputValue < 0) {
       setIsDisabled(true);
       disableButton("submitConfirm");
       setReviewInputAmount(0);
