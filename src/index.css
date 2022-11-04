@@ -37,6 +37,7 @@ a {
 
 button,
 a {
+  color: inherit;
   cursor: pointer;
 }
 
@@ -159,4 +160,10 @@ body {
 
   background: transparent;
   border: 0;
+}
+
+.disable {
+  cursor: not-allowed;
+  color: #fff;
+  background-color: var(--primary-black-100);
 }
