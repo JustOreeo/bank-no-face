@@ -1,19 +1,33 @@
 import React from "react";
-import Transaction from "./SubComponents/Transaction";
-import { useAuth } from "../Auth";
+import Transaction from "../components/common/Transaction";
 import {
   disableButton,
   enableButton,
-} from "./SubComponents/InterfaceFunctions";
+} from "../components/common/InterfaceFunctions";
 
-export default function Transfer() {
-  const auth = useAuth();
-  const userData = auth.user;
+export default function Withdraw() {
+  const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'))
+  const userLists = JSON.parse(localStorage.getItem('users'))
+  console.log("LogggedInUser",loggedInUser)
+  console.log("UserLists",userLists);
+  console.log("LogggedInUser Email: ",loggedInUser.email)
+
+   //finds the user and get its value 
+   let currentUser;
+   userLists.forEach(user => {
+     if(user.email === loggedInUser.email) {
+         console.log("User Email",user.email)
+         currentUser=user;
+     }
+     })
+     //check current user
+     console.log("Current User: ",currentUser)
+     console.log("Current User Email: ",currentUser.email)
 
   /* set deposit (not confirmed state) */
-  const [userBalance, setUserBalance] = React.useState(userData.balance);
+  const [userBalance, setUserBalance] = React.useState(currentUser.balance);
   /* confirm deposit (submission state) */
-  const [userCurrentData, setUserCurrentData] = React.useState(userData);
+  const [userCurrentData, setUserCurrentData] = React.useState(currentUser);
   /* set review deposit amount */
   const [reviewInputAmount, setReviewInputAmount] = React.useState(0);
   /* set state of submitConfirm button */
@@ -28,14 +42,14 @@ export default function Transfer() {
     input.current.focus();
   }
 
-  function enterTransfer() {
-    const inputValue = parseInt(document.querySelector(`#transfer`).value);
+  function enterWithdraw() {
+    const inputValue = parseInt(document.querySelector(`#withdraw`).value);
     if (!inputValue || inputValue < 0) {
       setIsDisabled(true);
       disableButton("submitConfirm");
       setReviewInputAmount(0);
       console.log("enter withdraw amount");
-    } else if (inputValue > userData.balance) {
+    } else if (inputValue > currentUser.balance) {
       setIsDisabled(true);
       disableButton("submitConfirm");
       console.log("negatib pre");
@@ -43,13 +57,13 @@ export default function Transfer() {
       setIsDisabled(false);
       enableButton("submitConfirm");
       setReviewInputAmount(inputValue);
-      setUserBalance(parseInt(userData.balance) - inputValue);
+      setUserBalance(parseInt(currentUser.balance) - inputValue);
       console.log(userBalance);
       return inputValue;
     }
   }
 
-  function confirmTransfer() {
+  function confirmWithdraw() {
     /* setUserCurrentData((prevUserData) => {
       return { ...prevUserData, balance: 10000000 };
     }); */
@@ -58,13 +72,13 @@ export default function Transfer() {
 
   return (
     <Transaction
-      transactionType="transfer"
+      transactionType="withdraw"
       currentBalance={userBalance}
-      transactionProcess={enterTransfer}
-      submitTransaction={confirmTransfer}
+      transactionProcess={enterWithdraw}
+      submitTransaction={confirmWithdraw}
       inputValue={reviewInputAmount}
-      userName={userData.name}
-      userEmail={userData.email}
+      userName={currentUser.name}
+      userEmail={currentUser.email}
       isSubmitTransactionButtonDisabled={isDisabled}
       onClickSubmitEvent={onClickSubmitEvent}
       input={input}

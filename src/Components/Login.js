@@ -27,7 +27,10 @@ const Login = () => {
                 found = true;
                 setIsAvailable([true, false])
                 if (user.password === input.password) {
-                    localStorage.setItem("loggedIn", true);
+                    //localStorage.setItem("loggedIn", true);
+                    const loggedInUser={isLoggedin:"true",email: user.email};
+                    localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
+                    console.log("loggedIn?");
                     setIsAvailable([true, true])
                 }
             } else {

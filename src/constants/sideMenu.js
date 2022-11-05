@@ -10,6 +10,18 @@ const sideMenu = [
     {
         path: '/users',
         name: 'Users'
+    },
+    {
+        path: '/deposit',
+        name: 'Deposit'
+    },
+    {
+        path: '/withdraw',
+        name: 'Withdraw'
+    },
+    {
+        path: '/transfer',
+        name: 'Transfer'
     }
 ]
 
