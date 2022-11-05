@@ -2,7 +2,7 @@ import React from "react";
 import "../../assets/Transaction.css";
 import { disableButton } from "./InterfaceFunctions";
 
-export default function Transaction(props) {
+const Transaction = (props) => {
   /* set current date */
   const date = new Date();
   const dateToday = date.toLocaleDateString();
@@ -109,3 +109,5 @@ export default function Transaction(props) {
     </div>
   );
 }
+
+export default Transaction;

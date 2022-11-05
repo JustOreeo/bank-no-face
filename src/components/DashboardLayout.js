@@ -1,13 +1,14 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
 import { useAuth } from "../Auth";
-export default function DashboardLayout() {
+
+const DashboardLayout = () => {
   const auth = useAuth();
   const userData = auth.user;
   console.log("dasshhbooard");
   console.log(userData.isLoggedIn);
   console.log(userData.accountType);
-  function handleLogout() {
+  const handleLogout = () => {
     auth.logout(userData);
   }
   return (
@@ -62,3 +63,5 @@ export default function DashboardLayout() {
     </>
   );
 }
+
+export default DashboardLayout;
