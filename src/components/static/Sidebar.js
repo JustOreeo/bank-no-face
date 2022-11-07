@@ -1,21 +1,40 @@
 import { NavLink } from "react-router-dom";
 import { sideMenu } from "../../constants/sideMenu";
+import { useNavigate } from 'react-router-dom';
 
 const Sidebar = () => {
     const menuItem = sideMenu
+    const navigate = useNavigate();
 
+    const handleLogout = () => {
+        //localStorage.removeItem("loggedIn");
+        localStorage.removeItem("loggedInUser");
+        navigate("/login");
+    }
+    
     return (
         <>
-            <div className="py-2 px-2 border-solid border-4 h-screen"> 
-                { menuItem.map((item, index) => (
-                        <li  key={index} className="no-underline flex flex-row">
-                            <NavLink  to={item.path}  className=" hover:bg-blue-400 active:bg-blue-700 py-2 border-solid border-2 rounded-lg w-44 m-1 text-center">
-                                <div>{item.name}</div>
-                            </NavLink>
-                        </li>
-                    ))
-                }
-            </div>
+            <nav className="main-nav">
+                <ul>
+                    {menuItem.map((item, index) => (
+                    <li  key={index}>
+                        <NavLink  to={item.path}  className="">
+                            <i className={`${item.name==="Dashboard" ? "fa-solid fa-table-list" : ""}
+                                ${item.name==="Create Account" ? "fa-solid fa-user-plus" : ""}
+                                ${item.name==="Users" ? "fa-solid fa-users-gear" : ""}
+                                ${item.name==="Deposit" ? "fa-solid fa-piggy-bank" : ""}
+                                ${item.name==="Withdraw" ? "fa-solid fa-hand-holding-dollar" : ""}
+                                ${item.name==="Transfer" ? "fa-solid fa-money-bill-transfer" : ""}`
+                                }>
+                            </i>
+                        </NavLink>
+                    </li>    
+                    ))}
+                </ul>
+                <button className="nav--logout" onClick={handleLogout} title="Log Out">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </button>
+            </nav>
         </>
     )
 }

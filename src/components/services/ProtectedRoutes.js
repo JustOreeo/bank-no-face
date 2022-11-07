@@ -1,6 +1,7 @@
 import React from 'react';
 import { Outlet, Navigate } from 'react-router-dom';
 import Sidebar from '../static/Sidebar';
+import Greeting from '../static/Greeting';
 
 const ProtectedRoutes = () => {
     const auth = localStorage.getItem("loggedInUser")
@@ -15,7 +16,11 @@ const ProtectedRoutes = () => {
         <>
             <div className="flex flex-row">
                 <Sidebar />
-                <Outlet />
+                <div className='p-4'>
+                    <Greeting />
+                    <Outlet />
+                </div>
+                
             </div>
         </>
         : <Navigate to="/login"/>

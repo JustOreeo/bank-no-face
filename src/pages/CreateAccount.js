@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../components/common/Button';
 import Input from '../components/common/Input';
 import { createAccountFields } from '../constants/formFields';
+import "../assets/Register.css";
 
 const fields = createAccountFields;
 let fieldsState = {};
@@ -53,8 +54,8 @@ const CreateAccount = () => {
                 <div className="flex justify-between items-center">
                     <h1 className="font-bold text-3xl">Accounts</h1>
                 </div>
-                <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-                    <div className="">
+                <form className="" onSubmit={handleSubmit}>
+                    <div className="py-10">
                         <select
                             key="role"
                             onChange={handleChange}
