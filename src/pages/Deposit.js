@@ -5,7 +5,7 @@ import {
   enableButton,
 } from "../components/common/InterfaceFunctions";
 
-export default function Deposit() {
+const Deposit = () => {
 
   const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'))
   const userLists = JSON.parse(localStorage.getItem('users'))
@@ -36,7 +36,7 @@ export default function Deposit() {
 
   const input = React.useRef(null);
 
-  function enterDeposit() {
+  const enterDeposit = () => {
     const inputValue = parseInt(document.querySelector(`#deposit`).value);
     if (!inputValue || inputValue < 0) {
       setIsDisabled(true);
@@ -53,7 +53,7 @@ export default function Deposit() {
     }
   }
 
-  function confirmDeposit() {   
+  const confirmDeposit = () => {   
     /* setUserCurrentData((prevUserData) => {
       return { ...prevUserData, balance: 1000000000 };
     }); */
@@ -61,7 +61,7 @@ export default function Deposit() {
     console.log(userCurrentData);
   }
   
-  function onClickSubmitEvent() {
+  const onClickSubmitEvent = () => {
     setIsDisabled(true);
     disableButton("submitConfirm");
 
@@ -85,3 +85,5 @@ export default function Deposit() {
     </>
   );
 }
+
+export default Deposit;

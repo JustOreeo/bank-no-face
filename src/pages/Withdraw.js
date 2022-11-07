@@ -5,7 +5,7 @@ import {
   enableButton,
 } from "../components/common/InterfaceFunctions";
 
-export default function Withdraw() {
+const Withdraw = () => {
   const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'))
   const userLists = JSON.parse(localStorage.getItem('users'))
   console.log("LogggedInUser",loggedInUser)
@@ -35,14 +35,14 @@ export default function Withdraw() {
 
   const input = React.useRef(null);
 
-  function onClickSubmitEvent() {
+  const onClickSubmitEvent = () => {
     setIsDisabled(true);
     disableButton("submitConfirm");
 
     input.current.focus();
   }
 
-  function enterWithdraw() {
+  const enterWithdraw = () => {
     const inputValue = parseInt(document.querySelector(`#withdraw`).value);
     if (!inputValue || inputValue < 0) {
       setIsDisabled(true);
@@ -63,7 +63,7 @@ export default function Withdraw() {
     }
   }
 
-  function confirmWithdraw() {
+  const confirmWithdraw = () => {
     /* setUserCurrentData((prevUserData) => {
       return { ...prevUserData, balance: 10000000 };
     }); */
@@ -85,3 +85,5 @@ export default function Withdraw() {
     />
   );
 }
+
+export default Withdraw;

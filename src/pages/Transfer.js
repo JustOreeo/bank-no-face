@@ -5,7 +5,7 @@ import {
   enableButton,
 } from "../components/common/InterfaceFunctions";
 
-export default function Transfer() {
+const Transfer = () => {
 
   const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'))
   const userLists = JSON.parse(localStorage.getItem('users'))
@@ -36,14 +36,14 @@ export default function Transfer() {
 
   const input = React.useRef(null);
 
-  function onClickSubmitEvent() {
+  const onClickSubmitEvent = () => {
     setIsDisabled(true);
     disableButton("submitConfirm");
 
     input.current.focus();
   }
 
-  function enterTransfer() {
+  const enterTransfer = () => {
     const inputValue = parseInt(document.querySelector(`#transfer`).value);
     if (!inputValue || inputValue < 0) {
       setIsDisabled(true);
@@ -64,7 +64,7 @@ export default function Transfer() {
     }
   }
 
-  function confirmTransfer() {
+  const confirmTransfer = () => {
     /* setUserCurrentData((prevUserData) => {
       return { ...prevUserData, balance: 10000000 };
     }); */
@@ -86,3 +86,5 @@ export default function Transfer() {
     />
   );
 }
+
+export default Transfer;
