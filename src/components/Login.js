@@ -20,8 +20,8 @@ const Login = () => {
         // Loop through all the users in localStorage then set true each time it satisfies the requirement
         loggedUser.forEach(user => {
             console.log("User: ", user);
-            console.log("Inpute Email: ", input.email);
-            console.log("Inpute Password: ", input.password);
+            console.log("Input Email: ", input.email);
+            console.log("Input Password: ", input.password);
             console.log("Bool?", user.email === input.email && user.password === input.password)
             if(user.email === input.email) {
                 found = true;

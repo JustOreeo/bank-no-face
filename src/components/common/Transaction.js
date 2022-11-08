@@ -13,7 +13,7 @@ const Transaction = (props) => {
         <p className="user-info__name">
           {props.userName}
           <span className="account-switch">
-            <i class="fa-solid fa-repeat"></i>
+            <i className="fa-solid fa-repeat"></i>
           </span>
         </p>
         <p className="user-email">{props.userEmail}</p>

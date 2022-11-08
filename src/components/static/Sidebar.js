@@ -32,7 +32,7 @@ const Sidebar = () => {
                     ))}
                 </ul>
                 <button className="nav--logout" onClick={handleLogout} title="Log Out">
-                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <i className="fa-solid fa-right-from-bracket"></i>
                 </button>
             </nav>
         </>
