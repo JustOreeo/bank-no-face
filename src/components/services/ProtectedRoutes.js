@@ -5,8 +5,9 @@ import Greeting from '../static/Greeting';
 
 const ProtectedRoutes = () => {
     const auth = localStorage.getItem("loggedInUser")
+    const users = localStorage.getItem("users")
     //function that checks if there's an admin user then saves it on to localStorage
-    if(!auth){
+    if(!users){
         const admin=[{name: "Admin Admin",email: "admin@admin",password: "12345678",role: "Admin",balance: "100"}];
         localStorage.setItem("users", JSON.stringify(admin));
         console.log("admin?");
