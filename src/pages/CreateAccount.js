@@ -42,6 +42,7 @@ const CreateAccount = () => {
 
         if(!found){
             setCreateAccError("")
+            createAccountState.role="User"
             userHistory.push(createAccountState)
             localStorage.setItem("users", JSON.stringify(userHistory));
             navigate("/users");
@@ -56,19 +57,6 @@ const CreateAccount = () => {
                 </div>
                 <form className="" onSubmit={handleSubmit}>
                     <div className="py-10">
-                        <select
-                            key="role"
-                            onChange={handleChange}
-                            name="role"
-                            id="role"
-                            required
-                            value={createAccountState["role"]}
-                            placeholder="Role"
-                        >
-                            <option>Role</option>
-                            <option>Admin</option>
-                            <option>User</option>
-                        </select>
                         {fields.map(field =>
                         
                             <Input

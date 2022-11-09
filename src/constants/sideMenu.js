@@ -4,6 +4,10 @@ const sideMenu = [
         name: 'Dashboard'
     },
     {
+        path: '/transactions',
+        name: 'Transaction'
+    },
+    {
         path: '/create-account',
         name: 'Create Account'
     },
