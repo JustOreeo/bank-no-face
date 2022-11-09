@@ -11,17 +11,13 @@ const sideMenu = [
         path: '/users',
         name: 'Users'
     },
-    {
-        path: '/deposit',
-        name: 'Deposit'
+    {   
+        path: '/manage',
+        name: 'Manage'
     },
     {
-        path: '/withdraw',
-        name: 'Withdraw'
-    },
-    {
-        path: '/transfer',
-        name: 'Transfer'
+        path: '/transfers',
+        name: 'Transfers'
     }
 ]
 
