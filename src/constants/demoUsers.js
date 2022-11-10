@@ -1,13 +1,5 @@
 const demoUsers = [
     {
-        name: 'Select Account',
-        email: 'select@account',
-        value: null,
-        password: 'Select Account',
-        role: 'Select Account',
-        balance: null
-    },
-    {
         name: 'Lee Ji-eun',
         email: 'iu@email.com',
         value: 'iu@email.com',
