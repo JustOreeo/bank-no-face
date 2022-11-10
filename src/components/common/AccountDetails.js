@@ -1,15 +1,13 @@
 import React from "react";
 
 const AccountDetails = ({ userInfo }) => {
-  console.log("Account Details User Info: ", userInfo);
-  console.log("Account Details User Role: ", userInfo.role);
   //map into array with specific properties
-  const users = {
+  const users={
     name: userInfo.name,
     email: userInfo.email,
-    role: userInfo.role,
-  };
-
+    role: userInfo.role
+  }
+  
   //headers for table
   const headers = Object.keys(users);
   //rows value

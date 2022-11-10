@@ -2,15 +2,15 @@ import React from "react";
 import AccountDetails from "../components/common/AccountDetails";
 import Transactions from "../components/common/Transactions";
 
-const Admin = ({ user }) => {
-  console.log("Admin: ", user);
-  console.log("Admin Name: ", user.name);
-  console.log("Admin Name: ", user.name);
+const Admin = ({ userInfo }) => {
+  console.log("Admin: ", userInfo);
+  console.log("Admin Name: ", userInfo.name);
+  console.log("Admin Name: ", userInfo.name);
   return (
     <div className="admin-page">
       <h2>Admin</h2>
-      <AccountDetails userInfo={user} />
-      <Transactions userInfo={user} />
+      <AccountDetails userInfo={userInfo} />
+      <Transactions userInfo={userInfo} />
     </div>
   );
 };
