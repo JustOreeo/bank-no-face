@@ -12,7 +12,7 @@ let loadAccounts = Array.from(JSON.parse(localStorage.getItem('accounts')))
 const [accounts, setMyAccounts] = useState(loadAccounts)
 const [email, setEmail] = useState();
 const [balance, setBalance] = useState([]);
-const [input, setInput] = useState();
+const [input, setInput] = useState('');
 
 //Auto update localStorage whenever the balance useState is changed
 useEffect(() => {accounts.map(account => {if(email === account.email){
