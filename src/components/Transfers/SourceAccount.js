@@ -16,6 +16,7 @@ const SourceAccount = ({accounts, setSourceEmail, sourceEmail, setSourceBalance,
       return (
         <div>
              <select className="select w-full max-w-xs" onChange={targetAccountHandler}>
+             <option>Select an account</option>
             {accounts.map((account, index) => { return(
                 <option key={index} value={account.value} >{account.name}</option>
             )})}
