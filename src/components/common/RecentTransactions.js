@@ -1,41 +1,23 @@
 import React from "react";
 import { demoRecentTransactions } from "../../constants/demoRecentTransactions";
 
-const Transactions = ({ userInfo, showTransaction }) => {
+const RecentTransactions = ({ userInfo }) => {
   console.log("Recent Transactions User Info: ", userInfo);
   console.log("Recent Transactions User Role: ", userInfo.role);
   console.log("Recent Transactions User Email: ", userInfo.email);
-  console.log("Show Transaction: ", showTransaction);
   const recentTransactions = demoRecentTransactions;
   let userTransactions = [];
-  recentTransactions.forEach((user, index) => {
-    console.log("Lenght:", userTransactions.length);
+  recentTransactions.forEach((user) => {
     //get only the transactions from user here
     if (user.from === userInfo.email && userInfo.role === "User") {
-      console.log("CHECK:", index);
       console.log("User Email", user.from);
-      //filter to 5 transactions only
-      if (showTransaction === "All") {
-        userTransactions.push(user);
-      } else {
-        if (userTransactions.length < 5) {
-          userTransactions.push(user);
-        }
-      }
+      userTransactions.push(user);
     }
     //if admin all transactions
     if (userInfo.role === "Admin") {
-      if (showTransaction === "All") {
-        userTransactions.push(user);
-      } else {
-        if (userTransactions.length < 5) {
-          userTransactions.push(user);
-        }
-      }
+      userTransactions.push(user);
     }
   });
-  //reverse to get the latest transaction on top
-  userTransactions.reverse();
   //check user transactions
   console.log("Transactions Current User: ", userTransactions);
   //headers for table
@@ -44,15 +26,8 @@ const Transactions = ({ userInfo, showTransaction }) => {
   const transactionsInfo = Object.values;
 
   return (
-    <div className="transactions">
-      <div className="flex gap-4 justify-content items-center">
-        <span className="component-header">
-          {showTransaction !== "All" && "Recent"}Transactions
-        </span>
-        {showTransaction !== "All" && (
-          <button className="btn btn-xs">View More</button>
-        )}
-      </div>
+    <div className="recent-transactions">
+      <h2>Recent Transactions</h2>
       <div className="overflow-x-auto">
         <table className="table table-compact text-center">
           <thead>
@@ -79,4 +54,4 @@ const Transactions = ({ userInfo, showTransaction }) => {
   );
 };
 
-export default Transactions;
+export default RecentTransactions;

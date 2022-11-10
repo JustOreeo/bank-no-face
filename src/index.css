@@ -2,22 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap");
+
 body {
   margin: 0;
-  font-family: 'Raleway';
- 
+  font-family: "Raleway";
 }
 
 :root {
-  --primary-green-400: #66a659;
+  --primary-green-200: hsl(110, 50%, 60%);
+  --primary-green-400: hsl(110, 30%, 50%);
   --primary-green-800: #041a00;
-  --secondary-green-100: #e5eef0;
+  --secondary-green-100: hsl(191, 27%, 92%);
   --secondary-red-400: #b21a1a;
   --primary-black-100: hsl(0, 0%, 50%, 1);
   --primary-black-300: rgba(31, 31, 31, 1);
   --primary-black-700: hsl(0, 0%, 0%, 1);
 
   --root-padding-buffer: calc(70px + 1vw);
+
+  --border-radius-master: 5px;
+
+  background-color: var(--secondary-green-100);
 }
 
 * {
@@ -51,15 +57,13 @@ a {
   cursor: pointer;
 }
 
-body {
-  background-color: var(--secondary-green-100);
-}
-
 #root {
-  height: 100vh;
+  position: relative;
   width: 100%;
 
   padding-inline-start: var(--root-padding-buffer);
+
+  isolation: isolate;
 }
 
 .sr-only {
@@ -73,7 +77,7 @@ body {
 
 .green-button {
   background-color: var(--primary-green-400);
-  border-radius: 100px;
+  border-radius: var(--border-radius-master);
   border: 0;
   padding-block: 0.6rem;
   padding-inline: 1.75rem;
@@ -92,7 +96,7 @@ body {
 }
 
 .rounded-input {
-  border-radius: 100px;
+  border-radius: var(--border-radius-master);
   border: 0;
   padding: 0.8rem;
 
@@ -115,6 +119,7 @@ body {
   bottom: 0;
   left: 0;
   padding: 1rem;
+  padding-block-start: calc(1rem + 75px);
 
   font-size: clamp(1rem, 10vw, 1.75rem);
   color: #fff;
@@ -132,6 +137,8 @@ body {
   background-color: var(--primary-black-300);
 
   filter: drop-shadow(2px 0px 1px hsl(0, 0%, 0%, 0.5));
+
+  z-index: 20;
 }
 
 .main-nav ul {
@@ -177,4 +184,255 @@ body {
   color: #fff;
   background-color: var(--primary-black-100);
 }
+#root > .flex.flex-row {
+  min-height: 100vh;
+}
+/* #root > .flex.flex-row {
+  isolation: isolate;
+}
 
+#root > .flex.flex-row > .main-nav {
+  z-index: 15;
+} */
+
+.p-4 {
+  /* isolation: isolate; */
+
+  padding-block-start: calc(75px + 1rem);
+
+  /* z-index: 16; */
+}
+
+.main-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 75px;
+
+  z-index: 30;
+
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+
+  /* background-color: var(--secondary-green-100); */
+  background-image: linear-gradient(
+    140deg,
+    hsl(110, 100%, 20%) 1%,
+    hsl(110, 20%, 60%) 40%,
+    hsl(190, 20%, 85%) 60%,
+    hsl(190, 20%, 90%) 70%
+  );
+
+  padding-inline: 35px;
+  box-shadow: 0px 2px 5px 0px hsl(0, 0%, 0%, 0.25);
+}
+
+.app-name {
+  color: white;
+  font-size: 2rem;
+  font-weight: 600;
+
+  position: relative;
+
+  isolation: isolate;
+}
+.app-name span {
+  color: var(--primary-green-200);
+  filter: brightness(1.2);
+}
+
+.greet-user {
+  position: relative;
+  margin-inline-end: 1rem;
+}
+.greet-user::after {
+  position: absolute;
+  bottom: 0px;
+  right: -40px;
+
+  content: "";
+  aspect-ratio: 1 / 1;
+  width: 30px;
+  /* display: inline-block; */
+  /* vertical-align: middle; */
+  margin-inline: 0.5rem;
+
+  background-image: url(assets/icons/heart.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.7;
+
+  scale: 0.9;
+  transform: rotate(10deg);
+
+  z-index: -1;
+}
+
+/* bg flavor */
+#root::after {
+  content: "대은행";
+  display: block;
+
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+
+  padding-block-start: 200px;
+  padding-inline-start: 50%;
+
+  z-index: -2;
+  opacity: 0.25;
+
+  font-size: 15rem;
+  font-weight: 900;
+  font-family: "Noto Sans KR", sans-serif;
+  color: hsl(120, 100%, 40%, 0.1);
+
+  background-image: linear-gradient(
+    180deg,
+    hsla(120, 100%, 27%, 0.25),
+    transparent
+  );
+
+  transition: background-image 1s ease-in-out;
+}
+
+.greet-user span {
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.dash-title {
+  font-size: 1.6rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.main-nav ul li:has(i),
+.main-nav button:has(i) {
+  position: relative;
+}
+.main-nav ul li:has(i)::before,
+.main-nav ul li:has(i)::after,
+.main-nav button:has(i)::before,
+.main-nav button:has(i)::after {
+  position: absolute;
+  opacity: 0;
+  visibility: hidden;
+
+  transition: opacity 250ms ease-in-out;
+}
+.main-nav button:has(i)::before,
+.main-nav ul li:has(i)::before {
+  content: "";
+
+  box-shadow: 0px 2px 2px hsl(0, 0%, 0%, 0.25);
+
+  color: var(--secondary-green-100);
+
+  top: -10px;
+  left: calc(100% + 16px);
+
+  padding: 0.5rem;
+  background-color: hsl(110, 30%, 50%, 0.8);
+
+  border-radius: 5px;
+
+  font-size: 0.9rem;
+}
+.main-nav button:has(i)::after,
+.main-nav ul li:has(i)::after {
+  content: "";
+  display: block;
+  aspect-ratio: 1 / 1;
+  width: 0px;
+
+  top: 8px;
+  left: calc(100% + 8px);
+  border-color: transparent;
+  border: 6px solid transparent;
+  border-left: 0;
+  border-right: 8px solid hsl(110, 30%, 50%, 0.8);
+}
+
+.main-nav ul li:has(.fa-chart-line)::before {
+  content: "Dashboard";
+}
+.main-nav ul li:has(.fa-table-list)::before {
+  content: "Transactions";
+}
+.main-nav ul li:has(.fa-user-plus)::before {
+  content: "Create Account";
+}
+.main-nav ul li:has(.fa-users-gear)::before {
+  content: "Users";
+}
+.main-nav ul li:has(.fa-piggy-bank)::before {
+  content: "Deposit";
+}
+.main-nav ul li:has(.fa-hand-holding-dollar)::before {
+  content: "Withdraw";
+}
+.main-nav ul li:has(.fa-money-bill-transfer)::before {
+  content: "Transfer";
+}
+.main-nav button:has(.fa-right-from-bracket)::before {
+  content: "Logout";
+}
+
+.main-nav ul li:hover::before,
+.main-nav ul li:hover::after,
+.main-nav button:hover::before,
+.main-nav button:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+.admin-page > div .component-header,
+.user-page > div .component-header {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-block: 1.2rem;
+}
+.admin-page > div .component-header::before,
+.user-page > div .component-header::before {
+  content: "";
+  aspect-ratio: 1 / 1;
+  width: 12.5px;
+
+  display: inline-block;
+  margin-inline: 10px;
+  border-radius: 500px;
+
+  background-image: linear-gradient(0deg, rgb(0, 121, 0), rgb(141, 208, 141));
+}
+.account-details > div {
+  padding: 1rem;
+  background-color: white;
+  width: min(350px, 90%);
+  border-radius: 0.5rem;
+}
+.account-details > div table {
+  width: 100%;
+}
+.account-details > div table th,
+.account-details > div table td {
+  text-align: left;
+}
+/* .admin-page > div > div {
+  padding: 1rem 1.5rem;
+  background-color: white;
+  border-radius: 0.5rem;
+} */
+/* .admin-page > div > div table {
+  width: min(560px, 90%);
+} */
+
+[data-role="user"]
+  li:is(:has(a[href="/create-account"]), :has([href="/users"])) {
+  display: none;
+}
