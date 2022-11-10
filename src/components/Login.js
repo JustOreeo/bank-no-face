@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../assets/Login.css';
+import { demoUsers } from '../constants/demoUsers';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -32,6 +33,7 @@ const Login = () => {
                     localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
                     console.log("loggedIn?");
                     setIsAvailable([true, true])
+                    localStorage.setItem('accounts', JSON.stringify(demoUsers))
                 }
             } else {
                 return isAvailable;
