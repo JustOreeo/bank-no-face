@@ -38,18 +38,8 @@ const DashboardLayout = () => {
               </Link>
             </li>
           )}
-          <li className="nav--deposit" title="Deposit">
-            <Link to="./deposit">
-              <i className="fa-solid fa-piggy-bank"></i>
-            </Link>
-          </li>
-          <li className="nav--withdraw" title="Withdraw">
-            <Link to="./withdraw">
-              <i className="fa-solid fa-hand-holding-dollar"></i>
-            </Link>
-          </li>
           <li className="nav--transfer" title="Transfer">
-            <Link to="./transfer">
+            <Link to="./transfers">
               <i className="fa-solid fa-money-bill-transfer"></i>
             </Link>
           </li>

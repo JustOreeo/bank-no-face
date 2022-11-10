@@ -1,11 +1,11 @@
 import React from "react";
-import Transaction from "../components/common/Transaction";
+import Transaction from "./Transaction";
 import {
   disableButton,
   enableButton,
-} from "../components/common/InterfaceFunctions";
+} from "../common/InterfaceFunctions";
 
-const Transfer = () => {
+const Deposit = () => {
 
   const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'))
   const userLists = JSON.parse(localStorage.getItem('users'))
@@ -36,6 +36,31 @@ const Transfer = () => {
 
   const input = React.useRef(null);
 
+  const enterDeposit = () => {
+    const inputValue = parseInt(document.querySelector(`#deposit`).value);
+    if (!inputValue || inputValue < 0) {
+      setIsDisabled(true);
+      disableButton("submitConfirm");
+      setReviewInputAmount(0);
+      console.log("enter deposit amount");
+    } else {
+      setIsDisabled(false);
+      setReviewInputAmount(inputValue);
+      setUserBalance(parseInt(currentUser.balance) + inputValue);
+      enableButton("submitConfirm");
+      console.log(userBalance);
+      return inputValue;
+    }
+  }
+
+  const confirmDeposit = () => {   
+    /* setUserCurrentData((prevUserData) => {
+      return { ...prevUserData, balance: 1000000000 };
+    }); */
+ 
+    console.log(userCurrentData);
+  }
+  
   const onClickSubmitEvent = () => {
     setIsDisabled(true);
     disableButton("submitConfirm");
@@ -43,48 +68,21 @@ const Transfer = () => {
     input.current.focus();
   }
 
-  const enterTransfer = () => {
-    const inputValue = parseInt(document.querySelector(`#transfer`).value);
-    if (!inputValue || inputValue < 0) {
-      setIsDisabled(true);
-      disableButton("submitConfirm");
-      setReviewInputAmount(0);
-      console.log("enter withdraw amount");
-    } else if (inputValue > currentUser.balance) {
-      setIsDisabled(true);
-      disableButton("submitConfirm");
-      console.log("negatib pre");
-    } else {
-      setIsDisabled(false);
-      enableButton("submitConfirm");
-      setReviewInputAmount(inputValue);
-      setUserBalance(parseInt(currentUser.balance) - inputValue);
-      console.log(userBalance);
-      return inputValue;
-    }
-  }
-
-  const confirmTransfer = () => {
-    /* setUserCurrentData((prevUserData) => {
-      return { ...prevUserData, balance: 10000000 };
-    }); */
-    console.log(userCurrentData);
-  }
-
   return (
-    <Transaction
-      transactionType="transfer"
-      currentBalance={userBalance}
-      transactionProcess={enterTransfer}
-      submitTransaction={confirmTransfer}
-      inputValue={reviewInputAmount}
-      userName={currentUser.name}
-      userEmail={currentUser.email}
-      isSubmitTransactionButtonDisabled={isDisabled}
-      onClickSubmitEvent={onClickSubmitEvent}
-      input={input}
-    />
+    <>
+      {<Transaction
+        transactionType="deposit"
+        currentBalance={userBalance}
+        transactionProcess={enterDeposit}
+        submitTransaction={confirmDeposit}
+        inputValue={reviewInputAmount}
+        userName={currentUser.name}
+        userEmail={currentUser.email}
+        isSubmitTransactionButtonDisabled={isDisabled}
+        onClickSubmitEvent={onClickSubmitEvent}
+        input={input}
+  />}
+    </>
   );
 }
 
-export default Transfer;
