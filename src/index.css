@@ -248,10 +248,6 @@ a {
   position: relative;
   margin-inline-end: 1rem;
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> a1171ea4fe06f8bd261550ec8487c313ef902b06
 .greet-user::after {
   position: absolute;
   bottom: 0px;
@@ -307,10 +303,7 @@ a {
 
 .greet-user span {
   font-weight: 600;
-<<<<<<< HEAD
   text-transform: capitalize;
-=======
->>>>>>> a1171ea4fe06f8bd261550ec8487c313ef902b06
 }
 
 .dash-title {
@@ -366,16 +359,11 @@ a {
   border-right: 8px solid hsl(110, 30%, 50%, 0.8);
 }
 
-<<<<<<< HEAD
 .main-nav ul li:has(.fa-chart-line)::before {
   content: "Dashboard";
 }
 .main-nav ul li:has(.fa-table-list)::before {
   content: "Transactions";
-=======
-.main-nav ul li:has(.fa-table-list)::before {
-  content: "Dashboard";
->>>>>>> a1171ea4fe06f8bd261550ec8487c313ef902b06
 }
 .main-nav ul li:has(.fa-user-plus)::before {
   content: "Create Account";
@@ -404,22 +392,14 @@ a {
   visibility: visible;
 }
 
-<<<<<<< HEAD
 .admin-page > div .component-header,
 .user-page > div .component-header {
-=======
-.admin-page > div > h2 {
->>>>>>> a1171ea4fe06f8bd261550ec8487c313ef902b06
   font-size: 1.25rem;
   font-weight: 600;
   margin-block: 1.2rem;
 }
-<<<<<<< HEAD
 .admin-page > div .component-header::before,
 .user-page > div .component-header::before {
-=======
-.admin-page > div > h2::before {
->>>>>>> a1171ea4fe06f8bd261550ec8487c313ef902b06
   content: "";
   aspect-ratio: 1 / 1;
   width: 12.5px;
