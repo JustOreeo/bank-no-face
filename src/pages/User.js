@@ -1,14 +1,13 @@
 import React from 'react'
 import AccountDetails from '../components/common/AccountDetails'
 import Transactions from '../components/common/Transactions'
-const User = ({user}) => {
-    console.log("User Info: ",user)
-    console.log("User Role: ",user.role)
+
+const User = ({userInfo}) => {
 
   return (
     <div>User
-        <AccountDetails userInfo={user}/>
-        <Transactions userInfo={user}/>
+        <AccountDetails userInfo={userInfo}/>
+        <Transactions userInfo={userInfo}/>
     </div>
     
   )

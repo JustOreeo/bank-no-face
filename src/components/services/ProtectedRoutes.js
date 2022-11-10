@@ -2,27 +2,21 @@ import React from 'react';
 import { Outlet, Navigate } from 'react-router-dom';
 import Sidebar from '../static/Sidebar';
 import Greeting from '../static/Greeting';
-
+import  useProfile,{ ProfileContext} from '../hooks/useProfile';
 const ProtectedRoutes = () => {
+    const {user, setUser} = useProfile();
     const auth = localStorage.getItem("loggedInUser")
-    const users = localStorage.getItem("users")
-    //function that checks if there's an admin user then saves it on to localStorage
-    if(!users){
-        const admin=[{name: "Admin Admin",email: "admin@admin",password: "12345678",role: "Admin",balance: "100"}];
-        localStorage.setItem("users", JSON.stringify(admin));
-        console.log("admin?");
-    }
-          
     return auth ? 
-        <>
-            <div className="flex flex-row">
-                <Sidebar />
-                <div className='p-4'>
-                    <Greeting />
-                    <Outlet />
+        <>  
+            <ProfileContext.Provider value={{ user, setUser }}>
+                <div className="flex flex-row">
+                    <Sidebar />
+                    <div className='p-4'>
+                        <Greeting />
+                        <Outlet />
+                    </div> 
                 </div>
-                
-            </div>
+            </ProfileContext.Provider>
         </>
         : <Navigate to="/login"/>
 }
