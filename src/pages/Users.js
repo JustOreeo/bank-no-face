@@ -6,6 +6,7 @@ const Users = () => {
     const [userSelected,setUserSelected]=useState("")
     const [showUserDetails,setShowUserDetails]=useState("")
     const userList = JSON.parse(localStorage.getItem("users"))
+    const [empty,setEmpty]=useState('');
 
     //remove admin from users list
     userList.splice(0,1);
@@ -15,6 +16,16 @@ const Users = () => {
         console.log("Show user: ",showUserDetails)
     }, [showUserDetails]);
 
+    //check if there is no user
+    useEffect(() => {
+        if(userList.length===0){
+            setEmpty("true")
+        }else{
+            setEmpty("false")
+        }
+      })
+    console.log("Userlist length: ",userList.length)
+   
     //map into array with specific properties
     const users= userList.map(user => ({ 
         name: user.name,
@@ -22,11 +33,14 @@ const Users = () => {
         balance: user.balance
     }));
 
-    //headers for table
-    const headers=Object.keys(users[0]);
-    //rows value
-    const userInfo=Object.values;
-
+    let headers;
+    let userInfo;
+    if(users.length!==0){
+        //headers for table
+        headers=Object.keys(users[0]);
+        //rows value
+        userInfo=Object.values;
+    }
     //Get user info when selected
     const handleGetUser = (selectedUser) => {
         //find user and set it again to get other keys like role
@@ -37,13 +51,14 @@ const Users = () => {
             }
         })
         setShowUserDetails("true");
-        }
+    }
     return (
         <>
         <div className=''>
             Users
             <div className="overflow-x-auto">
                 <table className="table table-compact text-center">
+                    {empty===false&&
                     <thead>
                         <tr>
                             <th></th>
@@ -52,6 +67,7 @@ const Users = () => {
                             ))}
                         </tr>
                     </thead>
+                    }
                     <tbody>
                     {users.map((item,index) => (
                     <tr key={index} onClick={()=>{handleGetUser(item)}} className="hover">
@@ -61,6 +77,11 @@ const Users = () => {
                         ))}
                     </tr>
                     ))}
+                    {empty==="true"&&
+                    <tr>
+                        <td>Nothing to show here</td>
+                    </tr>
+                    }
                     </tbody>
                 </table>
             </div>
