@@ -1,6 +1,6 @@
 import React from 'react'
 import AccountDetails from '../components/common/AccountDetails'
-import RecentTransactions from '../components/common/RecentTransactions'
+import Transactions from '../components/common/Transactions'
 const User = ({user}) => {
     console.log("User Info: ",user)
     console.log("User Role: ",user.role)
@@ -8,7 +8,7 @@ const User = ({user}) => {
   return (
     <div>User
         <AccountDetails userInfo={user}/>
-        <RecentTransactions userInfo={user}/>
+        <Transactions userInfo={user}/>
     </div>
     
   )

@@ -11,12 +11,7 @@
     border: none;
     width: 200px;
     background: #66A659;
-    color: #041A00;
-    padding-left: 10px;
-    padding-right: 10px;    
-    font-weight: 700;
-    line-height: 38px;
- 
+    color: #041A00;  
 }
 .disabled{
     cursor:not-allowed;
@@ -30,14 +25,12 @@
     cursor: pointer;
 }
 .input{
-  
     border-radius: 40px;
     border: none;
     width: 300px;
     color: #041A00;
     padding-left: 10px;
     padding-right: 10px;
-
     font-weight: 700;
     line-height: 38px;
 }

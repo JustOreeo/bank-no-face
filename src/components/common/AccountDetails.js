@@ -10,13 +10,12 @@ const AccountDetails = ({userInfo}) => {
         role: userInfo.role
     }
 
-    console.log("Checkkkkkkkkkkkkkkk:",users)
     //headers for table
     const headers=Object.keys(users);
     //rows value
     const userValues=Object.values;
   return (
-    <div>AccountDetails
+    <div>Account Details
         <div className="overflow-x-auto">
             <table className="table table-compact text-center">
                 <tbody>

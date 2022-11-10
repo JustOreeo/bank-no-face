@@ -5,8 +5,9 @@ import Dashboard from './components/Dashboard';
 import ProtectedRoutes from './components/services/ProtectedRoutes';
 import CreateAccount from './pages/CreateAccount';
 import Users from './pages/Users';
-import Manage from './pages/Manage';
-import Transfers from './pages/Transfers';
+import Withdraw from './pages/Withdraw';
+import Transfer from './pages/Transfer';
+import Transaction from './pages/Transaction';
 const App = () => {
     return (
         <>
@@ -16,6 +17,7 @@ const App = () => {
                     {/* Protected Routes */}
                     <Route path="/" element={<ProtectedRoutes />}>
                         <Route path="/dashboard" element={<Dashboard />} />
+                        <Route path="/transactions" element={<Transaction />} />
                         <Route path="/create-account" element={<CreateAccount />} />
                         <Route path="/users" element={<Users />} />
                         <Route path="/manage" element={<Manage />} />
