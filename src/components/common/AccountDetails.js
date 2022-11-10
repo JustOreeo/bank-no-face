@@ -16,7 +16,7 @@ const AccountDetails = ({ userInfo }) => {
   const userValues = Object.values;
   return (
     <div className="account-details">
-      <h2>Account Details</h2>
+      <h2 className="component-header">Account Details</h2>
       <div className="overflow-x-auto">
         <table className="table table-compact text-center">
           <tbody>

@@ -45,8 +45,10 @@ const Transactions = ({ userInfo, showTransaction }) => {
 
   return (
     <div className="transactions">
-      <div className="flex gap-4 justify-content">
-        <span>{showTransaction !== "All" && "Recent"}Transactions</span>
+      <div className="flex gap-4 justify-content items-center">
+        <span className="component-header">
+          {showTransaction !== "All" && "Recent"}Transactions
+        </span>
         {showTransaction !== "All" && (
           <button className="btn btn-xs">View More</button>
         )}

@@ -248,6 +248,7 @@ a {
   position: relative;
   margin-inline-end: 1rem;
 }
+
 .greet-user::after {
   position: absolute;
   bottom: 0px;
@@ -303,6 +304,7 @@ a {
 
 .greet-user span {
   font-weight: 600;
+  text-transform: capitalize;
 }
 
 .dash-title {
@@ -358,8 +360,11 @@ a {
   border-right: 8px solid hsl(110, 30%, 50%, 0.8);
 }
 
-.main-nav ul li:has(.fa-table-list)::before {
+.main-nav ul li:has(.fa-chart-line)::before {
   content: "Dashboard";
+}
+.main-nav ul li:has(.fa-table-list)::before {
+  content: "Transactions";
 }
 .main-nav ul li:has(.fa-user-plus)::before {
   content: "Create Account";
@@ -388,12 +393,14 @@ a {
   visibility: visible;
 }
 
-.admin-page > div > h2 {
+.admin-page > div .component-header,
+.user-page > div .component-header {
   font-size: 1.25rem;
   font-weight: 600;
   margin-block: 1.2rem;
 }
-.admin-page > div > h2::before {
+.admin-page > div .component-header::before,
+.user-page > div .component-header::before {
   content: "";
   aspect-ratio: 1 / 1;
   width: 12.5px;
@@ -425,3 +432,8 @@ a {
 /* .admin-page > div > div table {
   width: min(560px, 90%);
 } */
+
+[data-role="user"]
+  li:is(:has(a[href="/create-account"]), :has([href="/users"])) {
+  display: none;
+}
