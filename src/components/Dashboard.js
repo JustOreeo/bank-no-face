@@ -1,26 +1,17 @@
 import React from "react";
 import Admin from "../pages/Admin";
 import User from "../pages/User";
-
+import  useProfile from '../components/hooks/useProfile';
 const Dashboard = () => {
-  const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
-  const userLists = JSON.parse(localStorage.getItem("users"));
-  //finds the user and get its value
-  let currentUser;
-  userLists.forEach((user) => {
-    if (user.email === loggedInUser.email) {
-      currentUser = user;
-    }
-  });
-  //check current user
-  console.log("Current User: ", currentUser);
+  const {user} = useProfile();
+  console.log(user)
   return (
     <div className="dashboard">
       <p className="dash-title">Dashboard</p>
-      {currentUser.role === "Admin" && <Admin user={currentUser} />}
-      {currentUser.role === "User" && <User user={currentUser} />}
+      {user.role==="Admin"&&<Admin userInfo={user}/>}
+      {user.role==="User"&&<User userInfo={user}/>}
     </div>
-  );
+  )
 };
 
 export default Dashboard;
