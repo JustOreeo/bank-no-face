@@ -135,7 +135,7 @@ a {
   justify-content: center;
   gap: 1rem;
 
-  height: 100vh;
+  height: 100%;
   min-height: 500px;
   border-radius: 0 15px 15px 0;
 
@@ -444,11 +444,27 @@ table * {
 
 .user-page {
   width: 100%;
+}
 
+.user-page,
+.admin-page,
+.users-page {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 0.75fr 1fr;
   grid-template-rows: auto repeat(2, 1fr);
   gap: 2rem;
+}
+
+@media (max-width: 1000px) {
+  .user-page,
+  .admin-page,
+  .users-page {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 1rem;
+  }
 }
 
 .user-page .card-manager {
@@ -461,15 +477,77 @@ table * {
   grid-area: 2 / 2 / -1 / -1;
 }
 
+.users-page .users-list1 {
+  grid-area: 2 / 1 / 3 / 2;
+}
+.users-page .account-details {
+  grid-area: 3 / 1 / 4 / 2;
+}
+.users-page .transactions {
+  grid-area: 2 / 2 / -1 / -1;
+}
+
+.users-page .users-list1,
+.users-page .users-list1 > * {
+  width: 100%;
+}
+
+.users-page .users-list1 * {
+  background-color: transparent;
+  border-radius: 0 !important;
+  border: 0;
+}
+
+.users-page .users-list1 {
+  background-color: white;
+  box-shadow: 0px 2px 4px hsl(0, 0%, 0%, 0.25);
+  border-radius: 5px;
+  max-height: 160px;
+  overflow-y: auto;
+}
+
+.users-page .users-list1::-webkit-scrollbar {
+  width: 6px;
+  background-color: white;
+
+  padding: 1px;
+
+  border-radius: 0 15px 15px 0;
+
+  overflow: hidden;
+  margin-block: 5px;
+}
+
+.users-page .users-list1::-webkit-scrollbar-track {
+  margin-block: 5px;
+}
+
+.users-page .users-list1::-webkit-scrollbar-thumb {
+  background-color: var(--primary-green-400);
+
+  border-radius: 15px;
+}
+
+/* .users-page .users-list1 > table {
+} */
+
+.users-page .users-list1 > table tr:nth-child(odd) {
+  background-color: hsl(0, 0%, 0%, 0.05);
+}
+
+.users-page .users-list1 > table tr td {
+  overflow: hidden;
+}
+
 .admin-page > div .component-header,
 .user-page > div .component-header {
   font-size: 1.25rem;
   font-weight: 600;
   margin-block: 1.2rem;
 }
-/* .admin-page > div */
-.component-header::before,
-/* .user-page > div  */.component-header::before {
+/* .admin-page > div .component-header::before, */
+/* .user-page > div */
+.component-header::before {
   content: "";
   aspect-ratio: 1 / 1;
   width: 12.5px;
@@ -483,7 +561,7 @@ table * {
 .account-details > div {
   padding: 1rem;
   background-color: white;
-  width: min(350px, 90%);
+  width: min(350px, 100%);
   border-radius: 0.5rem;
 }
 .account-details > div table {
@@ -867,13 +945,6 @@ table * {
 
 .transactions table tbody tr:nth-child(odd) {
   background-color: hsl(0, 0%, 0%, 0.05);
-}
-
-.admin-page {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: auto repeat(2, 1fr);
-  gap: 2rem;
 }
 
 .admin-page .admin-dash {

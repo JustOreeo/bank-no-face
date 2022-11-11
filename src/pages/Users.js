@@ -54,9 +54,9 @@ const Users = () => {
   };
   return (
     <>
-      <div className="">
+      <div className="users-page">
         <h2 className="component-header">Users</h2>
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto users-list1">
           <table className="table table-compact text-center">
             {empty === false && (
               <thead>
