@@ -353,7 +353,7 @@ table * {
 }
 
 .dash-title,
-.transactions .component-header {
+.component-header {
   font-size: 1.6rem;
   font-weight: 600;
   text-transform: capitalize;
@@ -467,8 +467,9 @@ table * {
   font-weight: 600;
   margin-block: 1.2rem;
 }
-.admin-page > div .component-header::before,
-.user-page > div .component-header::before {
+/* .admin-page > div */
+.component-header::before,
+/* .user-page > div  */.component-header::before {
   content: "";
   aspect-ratio: 1 / 1;
   width: 12.5px;

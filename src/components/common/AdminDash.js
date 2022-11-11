@@ -11,9 +11,10 @@ const AdminDash = () => {
         <p className="count-label">Total Number of {"Users"}</p>
         <i className="fa-solid fa-user-tie"></i>
       </div>
-      <div className="quick-link">
-        <NavLink to={menuItem[2].path}>{menuItem[2].name}</NavLink>
-      </div>
+
+      <NavLink className="quick-link" to={menuItem[2].path}>
+        {menuItem[2].name}
+      </NavLink>
     </div>
   );
 };
