@@ -23,6 +23,11 @@ body {
 
   --border-radius-master: 5px;
 
+  --card-theme-bg-100: hsl(226, 20%, 29%);
+  --card-theme-bg-200: hsl(201, 21%, 35%);
+  --card-theme-bg-300: hsl(176, 28%, 35%);
+  --card-theme-bg-400: hsl(161, 35%, 48%);
+
   background-color: var(--secondary-green-100);
 }
 
@@ -195,13 +200,54 @@ a {
   z-index: 15;
 } */
 
-.p-4 {
+#root > .flex.flex-row > .p-4 {
   /* isolation: isolate; */
 
   padding-block-start: calc(75px + 1rem);
+  width: 98%;
 
   /* z-index: 16; */
 }
+
+#root > .flex.flex-row > .p-4 > .p-4 > form {
+  width: min(420px, 90%);
+
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 0rem;
+}
+
+/* #root > .flex.flex-row > .p-4 > div:not(.main-nav) > .overflow-x-auto {
+  width: min(900px, 90%);
+  margin-inline-end: auto;
+  background-color: white;
+  padding: 2rem 1.5rem;
+  border-radius: 5px;
+}
+
+#root > .flex.flex-row > .p-4 .overflow-x-auto table {
+  width: 100%;
+}
+
+table * {
+  border-radius: 0%;
+} */
+
+/* #root > .flex.flex-row > .p-4 .overflow-x-auto table * {
+  width: 100%;
+  background-color: transparent;
+} */
+
+/* #root > .flex.flex-row > .p-4 .overflow-x-auto table tr {
+  display: grid;
+  grid-template-columns: auto repeat(3, 1fr);
+} */
+
+/* #root > .flex.flex-row > .p-4 .overflow-x-auto table th {
+  width: fit-content;
+} */
 
 .main-header {
   position: fixed;
@@ -396,6 +442,25 @@ a {
   visibility: visible;
 }
 
+.user-page {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.user-page .card-manager {
+  grid-area: 2 / 1 / 3 / 2;
+}
+.user-page .account-details {
+  grid-area: 3 / 1 / 4 / 2;
+}
+.user-page .transactions {
+  grid-area: 2 / 2 / -1 / -1;
+}
+
 .admin-page > div .component-header,
 .user-page > div .component-header {
   font-size: 1.25rem;
@@ -446,3 +511,423 @@ a {
   padding: 0.25rem;
   background-color: white;
 }
+
+.card-manager,
+.admin-dash {
+  width: min(420px, 90%);
+  margin-inline-end: auto;
+
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  gap: 0.75rem;
+}
+
+.card-placeholder,
+.manage-link {
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+.manage-link,
+.quick-link {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+
+  background-color: white;
+  padding: 0.25rem 1.5rem;
+
+  border-radius: 5px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+}
+.manage-link::after,
+.quick-link::after {
+  content: ">";
+  color: var(--primary-green-200);
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.manage-link:hover,
+.quick-link:hover {
+  filter: brightness(1.1);
+}
+
+.card-placeholder {
+  position: relative;
+
+  width: 100%;
+  aspect-ratio: 793 / 500;
+
+  cursor: pointer;
+
+  border-radius: 12px;
+
+  transition: scale 250ms ease-in-out;
+}
+
+.card-placeholder:hover {
+  scale: 1.01;
+}
+
+.back.card-face {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  overflow: hidden;
+  border-radius: inherit;
+
+  position: absolute;
+
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(
+    45deg,
+    hsl(226, 20%, 46%) 10%,
+    var(--card-theme-bg-100)
+  );
+
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+
+  padding: 1rem;
+
+  font-size: 1.1rem;
+  text-transform: capitalize;
+  color: white;
+  box-shadow: 1px 2px 3px hsl(0, 0%, 0%, 1);
+}
+
+.card-face.a {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 0rem;
+
+  padding-block-start: 25px;
+  padding-inline-start: 85px;
+
+  isolation: isolate;
+}
+
+.card-face.a::before,
+.card-face.a::after {
+  position: absolute;
+}
+
+.card-face.a::before {
+  content: "";
+
+  aspect-ratio: 1 / 1;
+  width: 200px;
+
+  transform: rotate(-20deg);
+  bottom: 0;
+  right: 0;
+
+  background-image: url(/src/assets/icons/heart.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: invert(1);
+  opacity: 0.02;
+}
+
+.card-face.a::after {
+  content: "대은행";
+
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 15rem;
+  font-weight: 800;
+
+  top: -50%;
+  left: -110%;
+
+  opacity: 0.02;
+}
+
+.card-face.a i {
+  position: absolute;
+  top: 25px;
+  left: 25px;
+
+  padding: 0.6rem;
+  background-image: linear-gradient(
+    45deg,
+    hsl(226, 50%, 99%) 10%,
+    var(--card-theme-bg-100)
+  );
+  border-radius: 100%;
+  border: 4px solid hsl(226, 50%, 80%);
+
+  font-size: 1.5rem;
+  color: transparent;
+  background-clip: text;
+}
+
+.card-face.a .cardholder-name {
+  font-weight: 600;
+}
+
+.card-face.a .account-balance-label {
+  margin-block-start: auto;
+}
+
+.card-face.a .account-type {
+  font-size: 70%;
+}
+
+.card-face.a .account-balance-label,
+.card-face.a .account-balance {
+  align-self: flex-end;
+  margin-inline-end: 20px;
+}
+
+.card-face.a .account-balance-label {
+  font-size: 80%;
+}
+.card-face.a .account-balance {
+  font-weight: 600;
+}
+
+.card-face.b {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  align-items: center;
+
+  padding: 1rem 1.5rem;
+
+  isolation: isolate;
+}
+
+.card-face.b .app-name {
+  --border-size: 6px;
+  --border-color: var(--primary-green-200);
+  --inline-adjust: -18px;
+  --block-adjust: -4px;
+
+  grid-area: 2 / 1 / 3 / -1;
+
+  text-align: center;
+  font-size: 2.5rem;
+
+  position: relative;
+
+  isolation: isolate;
+
+  width: max-content;
+  margin: auto;
+
+  filter: drop-shadow(0px 2px 4px hsl(0, 0%, 0%, 0.25));
+}
+
+.card-face.b .app-name::before,
+.card-face.b .app-name::after {
+  content: "";
+  position: absolute;
+  border: 0;
+
+  width: 25%;
+  height: 40%;
+  background-color: transparent;
+}
+
+.card-face.b .app-name::before {
+  top: var(--block-adjust);
+  left: var(--inline-adjust);
+
+  border-inline-start: var(--border-size) solid var(--border-color);
+  border-block-start: var(--border-size) solid var(--border-color);
+}
+.card-face.b .app-name::after {
+  bottom: var(--block-adjust);
+  right: var(--inline-adjust);
+
+  border-inline-end: var(--border-size) solid var(--border-color);
+  border-block-end: var(--border-size) solid var(--border-color);
+}
+
+.card-face.b .card-number,
+.card-face.b .mastercard-logo,
+.card-face.b .card-expiration {
+  align-self: flex-end;
+}
+
+.card-face.b .card-number {
+  grid-area: 3 / 1 / 4 / 2;
+}
+
+.card-face.b .card-expiration {
+  grid-area: 3 / 2 / -1 / 3;
+  text-align: center;
+}
+
+.card-face.b .mastercard-logo {
+  grid-area: 3 / 3 / -1 / -1;
+  margin-inline-start: auto;
+
+  position: relative;
+
+  text-transform: lowercase;
+  font-size: 0.6rem;
+
+  isolation: isolate;
+}
+
+.card-face.b .mastercard-logo::before,
+.card-face.b .mastercard-logo::after {
+  content: "";
+  display: block;
+
+  position: absolute;
+  top: -30px;
+
+  width: 30px;
+  background-color: hsl(0, 100%, 50%, 80%);
+  aspect-ratio: 1 / 1;
+
+  border-radius: 100%;
+}
+.card-face.b .mastercard-logo::after {
+  left: 0;
+}
+.card-face.b .mastercard-logo::before {
+  right: 0;
+  background-color: orange;
+}
+
+.card-face.b::before,
+.card-face.b::after {
+  z-index: -2;
+
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  width: 200%;
+  height: 75px;
+  rotate: 45deg;
+  /*  background-color: green; */
+}
+
+.card-face.b::after {
+  bottom: 0;
+  left: -375px;
+
+  height: 188px;
+
+  background-image: linear-gradient(
+    0deg,
+    hsl(161, 35%, 42%, 0.8) 0%,
+    var(--card-theme-bg-400) 50%,
+    hsl(176, 28%, 30%, 0.8) 51%,
+    hsl(176, 28%, 32%, 0.8) 65%,
+    var(--card-theme-bg-300)
+  );
+}
+.card-face.b::before {
+  height: 150px;
+  left: -230px;
+
+  background-image: linear-gradient(
+    0deg,
+    hsl(201, 21%, 30%, 0.8),
+    var(--card-theme-bg-200)
+  );
+}
+
+.transactions > div:nth-child(2) {
+  background-color: white;
+  padding: 2.5rem 1.5rem;
+
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.transactions table {
+  width: 100%;
+}
+
+.transactions table * {
+  border-radius: 0;
+  background-color: transparent;
+}
+
+.transactions table tbody tr:nth-child(odd) {
+  background-color: hsl(0, 0%, 0%, 0.05);
+}
+
+.admin-page {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.admin-page .admin-dash {
+  grid-area: 2 / 1 / 3 / 2;
+}
+.admin-page .account-details {
+  grid-area: 3 / 1 / 4 / 2;
+}
+.admin-page .transactions {
+  grid-area: 2 / 2 / -1 / -1;
+}
+
+.admin-dash {
+  position: relative;
+
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 0.5rem;
+
+  margin-inline-end: auto;
+}
+
+.admin-dash .dash-overview {
+  background-image: linear-gradient(
+    0deg,
+    hsl(110, 60%, 49%),
+    hsl(100, 40%, 39%)
+  );
+
+  color: white;
+
+  border-radius: 5px;
+  padding: 1rem 1.5rem;
+}
+
+.dash-overview {
+  filter: drop-shadow(0px 2px 4px hsl(0, 0%, 0%, 0.25));
+}
+
+.dash-overview .count {
+  font-size: 2.5rem;
+  font-weight: 600;
+}
+
+.dash-overview i {
+  position: absolute;
+  right: 2rem;
+  top: 50%;
+  translate: 0 -50%;
+  font-size: 2rem;
+}
+
+/* --card-theme-bg-100: hsl(226, 20%, 29%);
+--card-theme-bg-200: hsl(201, 21%, 35%);
+--card-theme-bg-300: hsl(176, 28%, 35%);
+--card-theme-bg-400: hsl(161, 35%, 48%); */
