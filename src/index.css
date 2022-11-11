@@ -306,7 +306,8 @@ a {
   text-transform: capitalize;
 }
 
-.dash-title {
+.dash-title,
+.transactions .component-header {
   font-size: 1.6rem;
   font-weight: 600;
   text-transform: capitalize;
@@ -377,6 +378,9 @@ a {
 .main-nav ul li:has(.fa-hand-holding-dollar)::before {
   content: "Withdraw";
 }
+.main-nav ul li:has(.fa-vault)::before {
+  content: "Manage";
+}
 .main-nav ul li:has(.fa-money-bill-transfer)::before {
   content: "Transfer";
 }
@@ -435,4 +439,10 @@ a {
 [data-role="user"]
   li:is(:has(a[href="/create-account"]), :has([href="/users"])) {
   display: none;
+}
+
+.green-button.view-more {
+  font-size: 0.7rem;
+  padding: 0.25rem;
+  background-color: white;
 }
