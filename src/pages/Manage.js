@@ -7,12 +7,19 @@ import { demoUsers } from '../constants/demoUsers'
 const Manage = () => {
 
 //Load accounts from the localStorage
-let loadAccounts = Array.from(JSON.parse(localStorage.getItem('accounts')))
+const loadAccounts = Array.from(JSON.parse(localStorage.getItem('accounts')))
+const getUser = JSON.parse(localStorage.getItem('loggedInUser'))
+const loadHistory = Array.from(JSON.parse(localStorage.getItem('history')))
+
 // UseState to store data
+
+const [user] = useState(getUser.email)
 const [accounts, setMyAccounts] = useState(loadAccounts)
 const [email, setEmail] = useState();
 const [balance, setBalance] = useState([]);
 const [input, setInput] = useState('');
+const [history, setHistory] = useState(loadHistory);
+
 
 //Auto update localStorage whenever the balance useState is changed
 useEffect(() => {accounts.map(account => {if(email === account.email){
@@ -22,7 +29,10 @@ const reloadAccounts = Array.from(JSON.parse(localStorage.getItem('accounts')))
 setMyAccounts(reloadAccounts)
 }, [balance])
 
-//
+useEffect(() => {
+  localStorage.setItem('history', JSON.stringify(history))
+  }, [history])
+  
 
 return (
     <>
@@ -34,8 +44,12 @@ return (
             setBalance={setBalance}
             balance={balance}
             setInput={setInput}
+            history={history}
+            setHistory={setHistory}
+            user={user}
             input={input}/>
 </>
+
   )
 }
 

@@ -4,7 +4,7 @@ import Deposit from './Deposit';
 import Withdraw from './Withdraw';
 
 
-const ManageAccount = ({id, setEmail, setBalance, accounts, email, balance, setInput, input}) => {
+const ManageAccount = ({id, setEmail, setBalance, accounts, email, balance, setInput, input, history, setHistory, user}) => {
 
 
 const inputHandler = (e) => { 
@@ -51,8 +51,8 @@ return (
             <div className="divider"></div>
             <input maxLength='6' value={input} onChange={e => inputHandler(e)}type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
             <div className='flex flex-row justify-between'>
-            <Withdraw balance={balance} setBalance={setBalance} input={input} setInput={setInput}/>
-            <Deposit balance={balance} setBalance={setBalance} input={input} setInput={setInput}/>
+            <Withdraw balance={balance} setBalance={setBalance} input={input} setInput={setInput} history={history} setHistory={setHistory} user={user}/>
+            <Deposit balance={balance} setBalance={setBalance} input={input} setInput={setInput} history={history} setHistory={setHistory} user={user}/>
             </div>
             <div className='divider'></div>
             <div className='flex flex-col'>

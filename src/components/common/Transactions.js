@@ -2,20 +2,25 @@ import React, { useState,useEffect } from 'react'
 import { demoRecentTransactions } from "../../constants/demoRecentTransactions";
 
 const Transactions = ({ userInfo, showTransaction }) => {
-  console.log("Recent Transactions User Info: ", userInfo);
-  console.log("Recent Transactions User Role: ", userInfo.role);
-  console.log("Recent Transactions User Email: ", userInfo.email);
-  console.log("Show Transaction: ", showTransaction);
+  // console.log("Recent Transactions User Info: ", userInfo);
+  // console.log("Recent Transactions User Role: ", userInfo.role);
+  // console.log("Recent Transactions User Email: ", userInfo.email);
+  // console.log("Show Transaction: ", showTransaction);
   const [empty,setEmpty]=useState('');
 
-  const recentTransactions = demoRecentTransactions;
+  const getHistory = Array.from(JSON.parse(localStorage.getItem('history')))
+
+  const [history, setHistory] = useState(getHistory)
+ 
+
+  const recentTransactions = history;
   let userTransactions = [];
-  recentTransactions.forEach((user, index) => {
-    console.log("Lenght:", userTransactions.length);
+  recentTransactions.map((user, index) => {
+    // console.log("Lenght:", userTransactions.length);
     //get only the transactions from user here
     if (user.from === userInfo.email && userInfo.role === "User") {
-      console.log("CHECK:", index);
-      console.log("User Email", user.from);
+      // console.log("CHECK:", index);
+      // console.log("User Email", user.from);
       //filter to 5 transactions only
       if (showTransaction === "All") {
         userTransactions.push(user);
@@ -50,7 +55,7 @@ if(userTransactions.length!==0){
     //reverse to get the latest transaction on top
     userTransactions.reverse();
     //check user transactions
-    console.log("Transactions Current User: ",userTransactions)
+    // console.log("Transactions Current User: ",userTransactions)
     //headers for table
     headers=Object.keys(userTransactions[0]);
     //rows value
@@ -59,9 +64,10 @@ if(userTransactions.length!==0){
 return (
     <div className="transactions">
       <div className="flex gap-4 justify-content items-center">
-        <span className="component-header">
+        <span className="component-header flex flex-col mb-2">
           {showTransaction !== "All" && "Recent "}Transactions
         </span>
+      
         {showTransaction !== "All" && empty==="false" &&  (
           <button className="btn btn-xs">View More</button>
         )}
