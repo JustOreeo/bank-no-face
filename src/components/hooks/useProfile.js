@@ -4,13 +4,6 @@ const useProfile=()=>{
     const [user, setUser] = useState('');
     const loggedInUser=JSON.parse(localStorage.getItem("loggedInUser"))
     const users= JSON.parse(localStorage.getItem('users'))
-    //function that checks if there's an admin user then saves it on to localStorage
-    if(!users){
-        const admin=[{name: "Admin Admin",email: "admin@admin",password: "12345678",balance: "100",role: "Admin"}];
-        localStorage.setItem("users", JSON.stringify(admin));
-        // console.log("admin?");
-    }        
-    // console.log("Users: ",users);
        
     useEffect(() => {
     if (loggedInUser) {
