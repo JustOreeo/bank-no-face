@@ -7,6 +7,8 @@
 body {
   margin: 0;
   font-family: "Raleway";
+
+  overflow-y: scroll;
 }
 
 :root {
@@ -274,6 +276,24 @@ table * {
 
   padding-inline: 35px;
   box-shadow: 0px 2px 5px 0px hsl(0, 0%, 0%, 0.25);
+
+  isolation: isolate;
+}
+
+.main-header::before {
+  z-index: -2;
+
+  content: "대은행";
+  position: absolute;
+  top: 0;
+  right: 80px;
+
+  font-size: 3rem;
+  font-weight: 900;
+  font-family: "Noto Sans KR", sans-serif;
+  color: hsl(120, 100%, 40%, 0.1);
+
+  opacity: 0.3;
 }
 
 .app-name {
@@ -319,24 +339,15 @@ table * {
 
 /* bg flavor */
 #root::after {
-  content: "대은행";
+  /* content: "대은행"; */
+  content: "";
   display: block;
 
   position: absolute;
   inset: 0;
-  height: 100%;
-  width: 100%;
-
-  padding-block-start: 200px;
-  padding-inline-start: 50%;
 
   z-index: -2;
-  opacity: 0.25;
-
-  font-size: 15rem;
-  font-weight: 900;
-  font-family: "Noto Sans KR", sans-serif;
-  color: hsl(120, 100%, 40%, 0.1);
+  opacity: 0.6;
 
   background-image: linear-gradient(
     180deg,
@@ -1010,3 +1021,71 @@ table * {
 --card-theme-bg-200: hsl(201, 21%, 35%);
 --card-theme-bg-300: hsl(176, 28%, 35%);
 --card-theme-bg-400: hsl(161, 35%, 48%); */
+
+.login-container {
+  position: absolute;
+  inset: 0;
+
+  isolation: isolate;
+
+  overflow: hidden;
+}
+
+.login-container::before,
+.login-container::after {
+  content: "";
+  position: absolute;
+
+  z-index: -2;
+}
+
+.login-container::before {
+  width: 1500px;
+  aspect-ratio: 1 / 1;
+  background-color: hsl(150, 100%, 10%, 0.4);
+  border-radius: 100%;
+  top: -712px;
+  left: -575px;
+}
+
+.login-container::after {
+  background-image: url(assets/icons/heart.png);
+  width: 400px;
+  aspect-ratio: 1 / 1;
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.05;
+
+  top: 40%;
+  right: 0;
+  rotate: 20deg;
+}
+
+.login-container > .app-name {
+  font-size: clamp(3rem, 10vw, 5rem);
+  margin-block: 2rem;
+}
+
+.login-container input,
+.login-container button {
+  border-radius: 5px;
+}
+
+.login-container button {
+  box-shadow: 0px 2px 2px hsl(0, 0%, 0%, 0.1);
+  background-color: var(--primary-green-200) !important;
+  color: white !important;
+}
+.login-container button:hover {
+  filter: brightness(1.1) !important;
+  background-color: var(--primary-green-200) !important;
+}
+
+.errorMsg {
+  margin-block: 0.5rem;
+  color: red;
+  font-weight: 800;
+
+  filter: brightness(1.1);
+  text-shadow: 0px 1px 1px hsl(0, 0%, 100%, 0.5);
+}

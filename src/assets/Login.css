@@ -1,54 +1,50 @@
-.login-container{
-   height:100vh;
-   background-color: #E5EEF0;
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   justify-content: center; 
+.login-container {
+  height: 100vh;
+  background-color: #e5eef0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
-.btn{
-    border-radius: 40px;
-    border: none;
-    width: 200px;
-    background: #66A659;
-    color: #041A00;  
+.btn {
+  border-radius: 40px;
+  border: none;
+  width: 200px;
+  background: #66a659;
+  color: #041a00;
 }
-.disabled{
-    cursor:not-allowed;
-    pointer-events:none;
-    background-color: #0f0e0e44;
-    color: #ffffff;
-    
+.disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+  background-color: #0f0e0e44;
+  color: #ffffff;
 }
-.enabled{
-    cursor:not-allowed; 
-    cursor: pointer;
+.enabled {
+  cursor: not-allowed;
+  cursor: pointer;
 }
-.input{
-    border-radius: 40px;
-    border: none;
-    width: 300px;
-    color: #041A00;
-    padding-left: 10px;
-    padding-right: 10px;
-    font-weight: 700;
-    line-height: 38px;
+.input {
+  border-radius: 40px;
+  border: none;
+  width: 300px;
+  color: #041a00;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-weight: 700;
+  line-height: 38px;
 }
-.input:focus{
-    outline: none; 
-     
+.input:focus {
+  outline: none;
 }
-.error{
-    border: 1px solid;
-    border-color: #B21A1A;
-    
+.error {
+  border: 1px solid;
+  border-color: #b21a1a;
 }
-.error:focus{
-    outline: none;
-   
+.error:focus {
+  outline: none;
 }
-.errorMsg{
-    height: 20px;
-    font-size: 15px;
-    color:#B21A1A
+.errorMsg {
+  min-height: 1.5rem;
+  font-size: 15px;
+  color: #b21a1a;
 }

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { demoRecentTransactions } from "../../constants/demoRecentTransactions";
+import { sideMenu } from "../../constants/sideMenu";
+import { NavLink } from "react-router-dom";
 
 const Transactions = ({ userInfo, showTransaction }) => {
   console.log("Recent Transactions User Info: ", userInfo);
@@ -7,6 +9,13 @@ const Transactions = ({ userInfo, showTransaction }) => {
   console.log("Recent Transactions User Email: ", userInfo.email);
   console.log("Show Transaction: ", showTransaction);
   const [empty, setEmpty] = useState("");
+
+  const menuItem = sideMenu;
+
+  console.log(
+    "AJSKDGKADGADSADSaaADSHJADSHJADSHJADSHJADSHJADSHJADSHJADSHJADSHADS",
+    menuItem
+  );
 
   const recentTransactions = demoRecentTransactions;
   let userTransactions = [];
@@ -63,7 +72,9 @@ const Transactions = ({ userInfo, showTransaction }) => {
           {showTransaction !== "All" && "Recent "}Transactions
         </span>
         {showTransaction !== "All" && empty === "false" && (
-          <button className="green-button view-more">View More</button>
+          <NavLink className="green-button view-more" to={menuItem[1].path}>
+            View More
+          </NavLink>
         )}
       </div>
       <div className="overflow-x-auto">
