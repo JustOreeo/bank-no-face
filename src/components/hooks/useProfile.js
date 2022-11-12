@@ -8,26 +8,26 @@ const useProfile=()=>{
     if(!users){
         const admin=[{name: "Admin Admin",email: "admin@admin",password: "12345678",balance: "100",role: "Admin"}];
         localStorage.setItem("users", JSON.stringify(admin));
-        console.log("admin?");
+        // console.log("admin?");
     }        
-    console.log("Users: ",users);
+    // console.log("Users: ",users);
        
     useEffect(() => {
     if (loggedInUser) {
-        console.log("LogggedInUser: ",loggedInUser)
-        console.log("LogggedInUser Email: ",loggedInUser.email)
+        // console.log("LogggedInUser: ",loggedInUser)
+        // console.log("LogggedInUser Email: ",loggedInUser.email)
         //finds the user and get its value 
         users.forEach(user => {
             if(user.email === loggedInUser.email) {
-                console.log("User Email",user.email)
-                console.log("check",user);
+                // console.log("User Email",user.email)
+                // console.log("check",user);
                 setUser(user)
                
             }
         })
     }
     }, []);
-    console.log("User check",user)
+    // console.log("User check",user)
     return {user, setUser}
 };
 

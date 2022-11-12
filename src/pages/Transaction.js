@@ -13,7 +13,7 @@ const Transaction = () => {
       }
   })
   //check current user
-  console.log("Current User: ",currentUser)
+  // console.log("Current User: ",currentUser)
   return (
     <div>
       <Transactions userInfo={currentUser} showTransaction={showTransaction}/>

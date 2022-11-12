@@ -27,8 +27,6 @@ const Manage = () => {
     setMyAccounts(reloadAccounts);
   }, [balance]);
 
-  //
-
   return (
     <>
       <h1 className="mb-2 component-header">Manage Accounts</h1>
