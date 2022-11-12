@@ -34,6 +34,7 @@ const Login = () => {
                     console.log("loggedIn?");
                     setIsAvailable([true, true])
                     localStorage.setItem('accounts', JSON.stringify(demoUsers))
+                    localStorage.setItem('history', JSON.stringify([]))
                 }
             } else {
                 return isAvailable;

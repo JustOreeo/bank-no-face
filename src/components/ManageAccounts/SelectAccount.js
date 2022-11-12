@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import ManageAccount from './ManageAccount'
 
-const SelectAccount = ({accounts, setEmail, setBalance, email, balance, setInput, input}) => {
+const SelectAccount = ({accounts, setEmail, setBalance, email, balance, setInput, input,
+history, setHistory, user}) => {
 
   return (
     <div className="overflow-x-auto">
@@ -31,8 +32,11 @@ const SelectAccount = ({accounts, setEmail, setBalance, email, balance, setInput
           setBalance={setBalance} 
           balance={balance}
           setInput={setInput}
+          history={history}
+          setHistory={setHistory}
           input={input}
-          accounts={accounts}/>
+          accounts={accounts}
+          user={user}/>
         </td> 
       </tr>
       )})}

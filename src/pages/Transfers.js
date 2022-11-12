@@ -4,9 +4,12 @@ import SourceAccount from '../components/Transfers/SourceAccount';
 import TargetAccount from '../components/Transfers/TargetAccount';
 
 const Transfers = () => {
+    
 
 //Load accounts from the localStorage
 const accounts = Array.from(JSON.parse(localStorage.getItem('accounts')))
+const loadHistory = Array.from(JSON.parse(localStorage.getItem('history')))
+let getUser = JSON.parse(localStorage.getItem('loggedInUser'))
 
 // UseState to store data
 const [sourceEmail, setSourceEmail] = useState();
@@ -14,6 +17,20 @@ const [targetEmail, setTargetEmail] = useState();
 const [sourceBalance, setSourceBalance] = useState([]);
 const [targetBalance, setTargetBalance] = useState([])
 const [input, setInput] = useState('');
+const [history, setHistory] = useState(loadHistory)
+const [user] = useState(getUser.email)
+
+// save input value to a variable
+const enteredAmount = input
+
+// Timestamp 
+const currentDate = Date.now(); // This would be the timestamp you want to format
+
+const timeStamp = new Intl.DateTimeFormat('en-US', {hour: '2-digit', minute: '2-digit', second: '2-digit'})
+.format(currentDate);
+
+const dateStamp = new Intl.DateTimeFormat('en-US', {year: 'numeric', month: '2-digit',day: '2-digit', })
+.format(currentDate)
 
 //Auto update localStorage whenever the balance useState is changed
 useEffect(() => {accounts.map(account => {if(sourceEmail === account.email){
@@ -26,7 +43,10 @@ useEffect(() => {accounts.map(account => {if(targetEmail === account.email){
     localStorage.setItem('accounts', JSON.stringify(accounts))
 }, [targetBalance])
     
-
+useEffect(() => {
+    localStorage.setItem('history', JSON.stringify(history))
+    }, [history])
+    
 
 
 //Capture Input
@@ -47,6 +67,17 @@ const transferHandler = (e)=> {
     }else{
         setSourceBalance(sourceBalance - parseInt(input))
         setTargetBalance(targetBalance + parseInt(input))
+        setHistory([
+            ...history,
+            {createdby: `${user}`,
+            date: `${dateStamp}`, 
+            time:`${timeStamp}`, 
+            type:'Deposit', 
+            amount: `${enteredAmount}`, 
+            sender: `${sourceEmail}`, 
+            receiver: `${targetEmail}`, 
+            }
+        ])
     }
        
     

@@ -8,7 +8,7 @@ import "../assets/Register.css";
 const fields = createAccountFields;
 let fieldsState = {};
 fields.forEach(field  => fieldsState[field.id] = '');
-console.log("Fields: ",fields)
+// console.log("Fields: ",fields)
 
 const CreateAccount = () => {
     const navigate = useNavigate();

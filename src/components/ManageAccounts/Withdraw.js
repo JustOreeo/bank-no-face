@@ -1,6 +1,19 @@
 import React from 'react'
 
-const Withdraw = ({input, setBalance, balance, setInput}) => {
+const Withdraw = ({input, setBalance, balance, setInput, setHistory, history, user}) => {
+
+// save input value to a variable
+    const enteredAmount = input
+
+// Timestamp 
+const currentDate = Date.now(); // This would be the timestamp you want to format
+
+const timeStamp = new Intl.DateTimeFormat('en-US', {hour: '2-digit', minute: '2-digit', second: '2-digit'})
+.format(currentDate);
+
+const dateStamp = new Intl.DateTimeFormat('en-US', {year: 'numeric', month: '2-digit',day: '2-digit', })
+.format(currentDate)
+
 
 const withdrawHandler = () => {
   if(input === ''){alert('Please enter an amount to proceed');}
@@ -9,7 +22,20 @@ const withdrawHandler = () => {
   else if(input < 500){alert('Minimum withdrawal amount reached. Please withdraw an amount that is equal or greater than 500 pesos');}
   else if(input > balance && balance !== 0 ){alert('Withdrawal amount is greater than the current balance');}
   else if(input > balance && balance === 0) {alert('Insufficient funds! Please deposit money on your account');}
-  else {setBalance(balance - parseInt(input))}
+  else {
+    setBalance(balance - parseInt(input))
+    setHistory([
+            ...history,
+            {createdby: `${user}`,
+             date: `${dateStamp}`, 
+             time:`${timeStamp}`, 
+             type:'Withdraw', 
+             amount: `${enteredAmount}`, 
+             sender: 'Account Deposit', 
+             receiver: 'Account Deposit', 
+        }
+        ])
+  }
 } 
 
 const resetInput=(e)=> {withdrawHandler();setInput('')}
