@@ -1,6 +1,6 @@
-import React from 'react'
+import React,  {useEffect} from 'react'
 
-const Withdraw = ({input, setBalance, balance, setInput, setHistory, history, user}) => {
+const Withdraw = ({input, setBalance, balance, setInput, setHistory, history, user, email}) => {
 
 // save input value to a variable
     const enteredAmount = input
@@ -14,7 +14,10 @@ const timeStamp = new Intl.DateTimeFormat('en-US', {hour: '2-digit', minute: '2-
 const dateStamp = new Intl.DateTimeFormat('en-US', {year: 'numeric', month: '2-digit',day: '2-digit', })
 .format(currentDate)
 
-
+useEffect(() => {
+  localStorage.setItem('history', JSON.stringify(history))
+  }, [history])
+  
 const withdrawHandler = () => {
   if(input === ''){alert('Please enter an amount to proceed');}
   else if(input === '0'){alert('Please enter an amount to proceed');}
@@ -31,8 +34,8 @@ const withdrawHandler = () => {
              time:`${timeStamp}`, 
              type:'Withdraw', 
              amount: `${enteredAmount}`, 
-             sender: 'Account Deposit', 
-             receiver: 'Account Deposit', 
+             sender: `${email}`, 
+              receiver: `${email}`, 
         }
         ])
   }

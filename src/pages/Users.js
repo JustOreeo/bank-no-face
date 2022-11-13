@@ -33,11 +33,8 @@ const Users = () => {
     balance: user.balance,
   }));
 
-  let headers;
   let userInfo;
   if (users.length !== 0) {
-    //headers for table
-    headers = Object.keys(users[0]);
     //rows value
     userInfo = Object.values;
   }
@@ -58,16 +55,14 @@ const Users = () => {
         <h2 className="component-header">Users</h2>
         <div className="overflow-x-auto users-list1">
           <table className="table table-compact text-center">
-            {empty === false && (
               <thead>
                 <tr>
                   <th></th>
-                  {headers.map((key) => (
-                    <th>{key}</th>
-                  ))}
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Balance</th>
                 </tr>
               </thead>
-            )}
             <tbody>
               {users.map((item, index) => (
                 <tr
@@ -83,13 +78,15 @@ const Users = () => {
                   ))}
                 </tr>
               ))}
-              {empty === "true" && (
-                <tr>
-                  <td>Nothing to show here</td>
-                </tr>
-              )}
             </tbody>
           </table>
+          {empty === "true" && (
+          <table className="text-center ">
+            <tr>
+              <td>No Users yet</td>
+            </tr>
+          </table>
+         )}
         </div>
         {showUserDetails === "true" && (
           <>

@@ -1,7 +1,7 @@
-import React from 'react'
+import React, {useEffect } from 'react'
 
-const Deposit = ({balance, setBalance, input, setInput, setHistory, history, user}) => {
-
+const Deposit = ({balance, setBalance, input, setInput, setHistory, history, user, email}) => {
+console.log(email)
 // save input value to a variable
 const enteredAmount = input
 
@@ -13,7 +13,6 @@ const timeStamp = new Intl.DateTimeFormat('en-US', {hour: '2-digit', minute: '2-
 
 const dateStamp = new Intl.DateTimeFormat('en-US', {year: 'numeric', month: '2-digit',day: '2-digit', })
 .format(currentDate)
-
 
 const depositHandler = () => {
   if(input === ''){alert('Please enter an amount to proceed');}
@@ -29,8 +28,8 @@ const depositHandler = () => {
         time:`${timeStamp}`, 
         type:'Deposit', 
         amount: `${enteredAmount}`, 
-        sender: 'Account Deposit', 
-        receiver: 'Account Deposit', 
+        sender: `${email}`, 
+        receiver: `${email}`, 
         }
     ])
   }
