@@ -1,6 +1,7 @@
 import React from "react";
 import { sideMenu } from "../../constants/sideMenu";
 import { NavLink } from "react-router-dom";
+import DashChart from "./DashChart";
 
 const AdminDash = () => {
   const menuItem = sideMenu;
@@ -20,6 +21,8 @@ const AdminDash = () => {
       <NavLink className="quick-link" to={menuItem[2].path}>
         {menuItem[2].name}
       </NavLink>
+
+      <DashChart />
     </div>
   );
 };
