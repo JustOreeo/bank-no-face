@@ -30,7 +30,7 @@ const Transactions = ({ userInfo, showTransaction }) => {
     recentTransactions.map((user) => {
       // console.log("Lenght:", userTransactions.length);
       //get only the transactions from user here
-      if (user.from === userInfo.email && userInfo.role === "User") {
+      if (user.receiver === userInfo.email && userInfo.role === "User") {
         // console.log("CHECK:", index);
         // console.log("User Email", user.from);
         //filter to 5 transactions only
@@ -63,16 +63,13 @@ const Transactions = ({ userInfo, showTransaction }) => {
     }
   });
 
-  let headers;
   let transactionsInfo;
   if (userTransactions.length !== 0) {
     //reverse to get the latest transaction on top
     userTransactions.reverse();
     //check user transactions
     console.log("Transactions Current User: ", userTransactions);
-    
-    //headers for table
-    headers = Object.keys(userTransactions[0]);
+ 
     //rows value
     transactionsInfo = Object.values;
   }
@@ -90,16 +87,20 @@ const Transactions = ({ userInfo, showTransaction }) => {
       </div>
       <div className="overflow-x-auto">
         <table className="table table-compact text-center">
-          {empty === false && (
+         
             <thead>
               <tr>
                 <th></th>
-                {headers.map((key) => (
-                  <th>{key}</th>
-                ))}
+                <th>Created by</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Type</th>
+                <th>Amount</th>
+                <th>Sender</th>
+                <th>Receiver</th>
               </tr>
             </thead>
-          )}
+          
           <tbody>
             {userTransactions.map((item, index) => (
               <tr key={index} className="hover">
@@ -108,14 +109,19 @@ const Transactions = ({ userInfo, showTransaction }) => {
                   <td>{value}</td>
                 ))}
               </tr>
+              
             ))}
-            {empty === "true" && (
-              <tr>
-                <td>No transactions yet</td>
-              </tr>
-            )}
+            
           </tbody>
+          
         </table>
+        {empty === "true" && (
+        <table className="flex justify-center">
+          <tr>
+            <td>No transactions yet</td>
+          </tr>
+        </table>
+        )}
       </div>
     </div>
   );

@@ -51,8 +51,8 @@ return (
             <div className="divider"></div>
             <input maxLength='6' value={input} onChange={e => inputHandler(e)}type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
             <div className='flex flex-row justify-between'>
-            <Withdraw balance={balance} setBalance={setBalance} input={input} setInput={setInput} history={history} setHistory={setHistory} user={user}/>
-            <Deposit balance={balance} setBalance={setBalance} input={input} setInput={setInput} history={history} setHistory={setHistory} user={user}/>
+            <Withdraw balance={balance} setBalance={setBalance} input={input} setInput={setInput} history={history} setHistory={setHistory} user={user} email={email}/>
+            <Deposit balance={balance} setBalance={setBalance} input={input} setInput={setInput} history={history} setHistory={setHistory} user={user} email={email}/>
             </div>
             <div className='divider'></div>
             <div className='flex flex-col'>

@@ -20,6 +20,7 @@ history, setHistory, user}) => {
       setEmpty("false");
     }
     console.log("Accounts length",getAccounts.length)
+  
   });
   return (
     <div className="overflow-x-auto">

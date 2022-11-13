@@ -7,10 +7,10 @@ const Transfers = () => {
     
 //Load accounts from the localStorage
 //check if user from local storage is not empty
-const checkAccounts=JSON.parse(localStorage.getItem("users"));
+const storedAccounts=JSON.parse(localStorage.getItem("users"));
 let setAccounts="";
-if(checkAccounts){
-    setAccounts=checkAccounts
+if(storedAccounts){
+    setAccounts=storedAccounts
 }
 //get all users except admin
   const getAccounts=[];
@@ -26,7 +26,7 @@ let accounts = Array.from(getAccounts);
 
 //check if history from local storage is not empty
 const checkHistory=JSON.parse(localStorage.getItem("history"));
-let setUserHistory="";
+let setUserHistory=[];
 if(checkHistory){
 setUserHistory=checkHistory
 }
@@ -56,14 +56,33 @@ const dateStamp = new Intl.DateTimeFormat('en-US', {year: 'numeric', month: '2-d
 .format(currentDate)
 
 //Auto update localStorage whenever the balance useState is changed
-useEffect(() => {accounts.map(account => {if(sourceEmail === account.email){
-account.balance = sourceBalance}})
-localStorage.setItem('accounts', JSON.stringify(accounts))
+useEffect(() => {
+    storedAccounts.map(account => {
+        if(sourceEmail === account.email)
+        {
+            account.balance = sourceBalance
+        }
+    })
+   /* const users = JSON.parse(localStorage.getItem("users"));
+    let found=false;
+    users.filter(user => {
+        if(user.role==="Admin"){
+            found=true;
+        }
+    });
+    if(found===false){
+        accounts.splice(0,0,{name: "Admin Admin",email: "admin@admin",password: "12345678",balance: 100 ,role: "Admin"})
+    }
+*/
+
+localStorage.setItem('users', JSON.stringify(storedAccounts))
 }, [sourceBalance])
 
-useEffect(() => {accounts.map(account => {if(targetEmail === account.email){
+useEffect(() => {storedAccounts.map(account => {if(targetEmail === account.email){
     account.balance = targetBalance}})
-    localStorage.setItem('accounts', JSON.stringify(accounts))
+    //add admin again
+    //accounts.push({name: "Admin Admin",email: "admin@admin",password: "12345678",balance: 100 ,role: "Admin"});
+    localStorage.setItem('users', JSON.stringify(storedAccounts))
 }, [targetBalance])
     
 useEffect(() => {
@@ -95,7 +114,7 @@ const transferHandler = (e)=> {
             {createdby: `${user}`,
             date: `${dateStamp}`, 
             time:`${timeStamp}`, 
-            type:'Deposit', 
+            type:'Transfer', 
             amount: `${enteredAmount}`, 
             sender: `${sourceEmail}`, 
             receiver: `${targetEmail}`, 
@@ -117,6 +136,7 @@ console.log(`This is the target ${targetBalance}`)
   return (
     <>
     <h1>Source Account</h1>
+
     <SourceAccount 
         accounts={accounts}
         sourceEmail={sourceEmail}
