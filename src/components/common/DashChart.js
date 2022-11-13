@@ -24,8 +24,6 @@ class DashChart extends Component {
       return `${chartdata.dateCreated}`;
     });
 
-    console.table("1234567894561234567894561231564811231", userCount);
-
     this.state = {
       series: [
         {
