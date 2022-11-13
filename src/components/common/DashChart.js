@@ -8,6 +8,8 @@ class DashChart extends Component {
 
     const userList = JSON.parse(localStorage.getItem("users"));
 
+    userList.shift();
+
     /* replace "demoUsers" with actual users list from local storage */
     const userCountByDate = {};
     userList.forEach(({ dateCreated }) => {
@@ -21,7 +23,7 @@ class DashChart extends Component {
     const yTotalUsers = userCount.map((chartdata) => chartdata.users);
     /* const yTotalMoney = demoChartData.map((chartdata) => chartdata.money); */
     const xDate = userCount.map((chartdata) => {
-      return `${chartdata.dateCreated}`;
+      return `${chartdata.dateCreated} GMT`;
     });
 
     this.state = {
@@ -69,8 +71,8 @@ class DashChart extends Component {
         },
         labels: [...xDate],
         xaxis: {
-          type: "category",
-          range: 4,
+          type: "datetime",
+          /* range: 4, */
         },
 
         yaxis: [
@@ -85,11 +87,11 @@ class DashChart extends Component {
               },
             },
           },
-          {
-            /* title: {
+          /* {
+            title: {
                 text: "Money in the Bulsa",
-              }, */
-            /* opposite: true,
+              },
+            opposite: true,
             labels: {
               show: true,
               formatter: (value) => {
@@ -98,8 +100,8 @@ class DashChart extends Component {
                   currency: "PHP",
                 }).format(value);
               },
-            }, */
-          },
+            },
+          }, */
         ],
       },
     };
