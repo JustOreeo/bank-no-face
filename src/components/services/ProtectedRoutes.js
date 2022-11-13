@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Outlet, Navigate } from "react-router-dom";
 import Sidebar from "../static/Sidebar";
 import Greeting from "../static/Greeting";
@@ -23,11 +23,11 @@ const ProtectedRoutes = () => {
 
   const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
   const userLists = JSON.parse(localStorage.getItem("users"));
-  console.log("LogggedInUser", loggedInUser);
-  console.log("UserLists", userLists);
-  console.log("LogggedInUser Email: ", loggedInUser.email);
+  // console.log("LogggedInUser", loggedInUser);
+  // console.log("UserLists", userLists);
+  // //console.log("LogggedInUser Email: ", loggedInUser.email);
 
-  //finds the user and get its value
+  // //finds the user and get its value
   let currentUser;
   userLists.forEach((user) => {
     if (user.email === loggedInUser.email) {
@@ -35,9 +35,9 @@ const ProtectedRoutes = () => {
       currentUser = user;
     }
   });
-  //check current user
-  console.log("Current User: ", currentUser);
-  console.log("Current User Email: ", currentUser.email);
+  // //check current user
+  // console.log("Current User: ", currentUser);
+  // console.log("Current User Email: ", currentUser.email);
 
   return auth ? (
     <>

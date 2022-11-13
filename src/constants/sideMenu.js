@@ -22,6 +22,10 @@ const sideMenu = [
     {
         path: '/transfers',
         name: 'Transfers'
+    },
+    {
+        path: '/expenses',
+        name: 'Expenses'
     }
 ]
 
