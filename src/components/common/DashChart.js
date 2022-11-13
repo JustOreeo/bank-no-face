@@ -6,9 +6,11 @@ class DashChart extends Component {
   constructor(props) {
     super(props);
 
+    const userList = JSON.parse(localStorage.getItem("users"));
+
     /* replace "demoUsers" with actual users list from local storage */
     const userCountByDate = {};
-    demoUsers.forEach(({ dateCreated }) => {
+    userList.forEach(({ dateCreated }) => {
       userCountByDate[dateCreated] = (userCountByDate[dateCreated] || 0) + 1;
     });
 

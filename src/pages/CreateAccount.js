@@ -46,6 +46,7 @@ const CreateAccount = () => {
       //make balance into integer
       createAccountState.balance = parseInt(createAccountState.balance);
       createAccountState.role = "User";
+      createAccountState.dateCreated = new Date().toLocaleDateString();
       userHistory.push(createAccountState);
       localStorage.setItem("users", JSON.stringify(userHistory));
       navigate("/users");
