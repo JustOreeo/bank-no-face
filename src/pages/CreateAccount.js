@@ -44,19 +44,20 @@ const CreateAccount = () => {
     if (!found) {
       setCreateAccError("");
       //make balance into integer
-      createAccountState.balance=parseInt(createAccountState.balance)
+      createAccountState.balance = parseInt(createAccountState.balance);
       createAccountState.role = "User";
+      createAccountState.dateCreated = new Date().toLocaleDateString();
       userHistory.push(createAccountState);
       localStorage.setItem("users", JSON.stringify(userHistory));
       navigate("/users");
     }
   };
-  
+
   return (
     <>
       <div className="p-4">
         <div className="flex justify-between items-center">
-          <h1 className="font-bold text-3xl component-header">Accounts</h1>
+          <h1 className="component-header">Accounts</h1>
         </div>
         <form className="" onSubmit={handleSubmit}>
           <div className="py-10">
