@@ -16,17 +16,17 @@ const Transactions = ({ userInfo, showTransaction }) => {
     menuItem
   );*/
   //check if history from local storage is not empty
-  const checkHistory=JSON.parse(localStorage.getItem("history"));
-  let setUserHistory="";
-  if(checkHistory){
-    setUserHistory=checkHistory
+  const checkHistory = JSON.parse(localStorage.getItem("history"));
+  let setUserHistory = "";
+  if (checkHistory) {
+    setUserHistory = checkHistory;
   }
   //const getHistory = Array.from(JSON.parse(localStorage.getItem('history')))
-  const getHistory = Array.from(setUserHistory)
-  const [history, setHistory] = useState(getHistory)
+  const getHistory = Array.from(setUserHistory);
+  const [history, setHistory] = useState(getHistory);
   const recentTransactions = history;
   let userTransactions = [];
-  if(history){
+  if (history) {
     recentTransactions.map((user) => {
       // console.log("Lenght:", userTransactions.length);
       //get only the transactions from user here
@@ -54,7 +54,7 @@ const Transactions = ({ userInfo, showTransaction }) => {
       }
     });
   }
- 
+
   useEffect(() => {
     if (userTransactions.length === 0) {
       setEmpty("true");
@@ -69,14 +69,14 @@ const Transactions = ({ userInfo, showTransaction }) => {
     userTransactions.reverse();
     //check user transactions
     console.log("Transactions Current User: ", userTransactions);
- 
+
     //rows value
     transactionsInfo = Object.values;
   }
   return (
     <div className="transactions">
       <div className="flex gap-4 justify-content items-center">
-        <span className="component-header flex flex-col mb-2">
+        <span className="component-header">
           {showTransaction !== "All" && "Recent "}Transactions
         </span>
         {showTransaction !== "All" && empty === "false" && (
@@ -87,20 +87,19 @@ const Transactions = ({ userInfo, showTransaction }) => {
       </div>
       <div className="overflow-x-auto">
         <table className="table table-compact text-center">
-         
-            <thead>
-              <tr>
-                <th></th>
-                <th>Created by</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Type</th>
-                <th>Amount</th>
-                <th>Sender</th>
-                <th>Receiver</th>
-              </tr>
-            </thead>
-          
+          <thead>
+            <tr>
+              <th></th>
+              <th>Created by</th>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Type</th>
+              <th>Amount</th>
+              <th>Sender</th>
+              <th>Receiver</th>
+            </tr>
+          </thead>
+
           <tbody>
             {userTransactions.map((item, index) => (
               <tr key={index} className="hover">
@@ -109,18 +108,15 @@ const Transactions = ({ userInfo, showTransaction }) => {
                   <td>{value}</td>
                 ))}
               </tr>
-              
             ))}
-            
           </tbody>
-          
         </table>
         {empty === "true" && (
-        <table className="flex justify-center">
-          <tr>
-            <td>No transactions yet</td>
-          </tr>
-        </table>
+          <table className="flex justify-center">
+            <tr>
+              <td>No transactions yet</td>
+            </tr>
+          </table>
         )}
       </div>
     </div>
