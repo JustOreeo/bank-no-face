@@ -89,7 +89,7 @@ class DashChart extends Component {
             /* title: {
                 text: "Money in the Bulsa",
               }, */
-            opposite: true,
+            /* opposite: true,
             labels: {
               show: true,
               formatter: (value) => {
@@ -98,7 +98,7 @@ class DashChart extends Component {
                   currency: "PHP",
                 }).format(value);
               },
-            },
+            }, */
           },
         ],
       },
