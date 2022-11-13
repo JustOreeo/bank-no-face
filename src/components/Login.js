@@ -1,108 +1,116 @@
-import React, { useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import '../assets/Login.css';
-import { demoUsers } from '../constants/demoUsers';
+import React, { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import "../assets/Login.css";
+import { demoUsers } from "../constants/demoUsers";
 
 const Login = () => {
-    const navigate = useNavigate();
-    const [ input, setInput ] = useState({
-        email: "",
-        password: "",
-    });
-    const [emailError, setEmailError] = useState('');
-    const [passwordError, setPasswordError] = useState('');
-    const [loginError, setLoginError] = useState('');
-    const [ isAvailable, setIsAvailable ] = useState([true, true]);
+  const navigate = useNavigate();
+  const [input, setInput] = useState({
+    email: "",
+    password: "",
+  });
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [loginError, setLoginError] = useState("");
+  const [isAvailable, setIsAvailable] = useState([true, true]);
 
-    const handleSearchCredential = () => {
-        const loggedUser = JSON.parse(localStorage.getItem("users"));
-        let found = false;
+  const handleSearchCredential = () => {
+    const loggedUser = JSON.parse(localStorage.getItem("users"));
+    let found = false;
 
-        // Loop through all the users in localStorage then set true each time it satisfies the requirement
-        loggedUser.forEach(user => {
-            console.log("User: ", user);
-            console.log("Input Email: ", input.email);
-            console.log("Input Password: ", input.password);
-            console.log("Bool?", user.email === input.email && user.password === input.password)
-            if(user.email === input.email) {
-                found = true;
-                setIsAvailable([true, false])
-                if (user.password === input.password) {
-                    //localStorage.setItem("loggedIn", true);
-                    const loggedInUser={isLoggedin:"true",email: user.email};
-                    localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
-                    console.log("loggedIn?");
-                    setIsAvailable([true, true])
-                    localStorage.setItem('accounts', JSON.stringify(demoUsers))
-                }
-            } else {
-                return isAvailable;
+    // Loop through all the users in localStorage then set true each time it satisfies the requirement
+    if(loggedUser){
+        loggedUser.forEach((user) => {
+          console.log("User: ", user);
+          console.log("Input Email: ", input.email);
+          console.log("Input Password: ", input.password);
+          console.log(
+            "Bool?",
+            user.email === input.email && user.password === input.password
+          );
+          if (user.email === input.email) {
+          found = true;
+          setIsAvailable([true, false]);
+          if (user.password === input.password) {
+            //localStorage.setItem("loggedIn", true);
+            const loggedInUser = { isLoggedin: "true", email: user.email };
+            localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
+            console.log("loggedIn?");
+            setIsAvailable([true, true]);
+            localStorage.setItem("accounts", JSON.stringify(demoUsers));
+            localStorage.setItem('history', JSON.stringify([]))
             }
-        })
+          } else {
+          return isAvailable;
+          }
+        });
+      }
+    if (!found) setIsAvailable([false, true]);
+    return found;
+  };
 
-        if(!found)
-            setIsAvailable([false, true]);
+  // Function that handles user login
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const loggedUser = JSON.parse(localStorage.getItem("users"));
+    console.log(loggedUser);
+    console.log("CHECK: ", handleSearchCredential());
 
-        return found;
+    if (input.email === "") {
+      setEmailError("Email is required");
+      //emailRef.current.classList.add("error")
     }
-    
-    // Function that handles user login
-    const handleLogin = (e) => {
-        e.preventDefault();
-        const loggedUser = JSON.parse(localStorage.getItem("users"));
-        console.log(loggedUser);
-        console.log("CHECK: ", handleSearchCredential());
-        
-        if( input.email === ""){
-            setEmailError("Email is required")
-            //emailRef.current.classList.add("error")
-        }
-        if( input.password === ""){
-            setPasswordError("Password is required")
-            //passRef.current.classList.add("error")
-        }
-        if ( handleSearchCredential() ) {
-            navigate("/dashboard")
-        } else {
-            setLoginError("Invalid email/password")
-        }
+    if (input.password === "") {
+      setPasswordError("Password is required");
+      //passRef.current.classList.add("error")
     }
-    return (
-        <div>
-        <form onSubmit={handleLogin} className='login-container' noValidate> 
-            <input 
-                name="email"
-                type="email" 
-                value={input.email}
-                placeholder='Email' 
-                className="input" 
-                onChange={(e) => {
-                    setInput({
-                        ...input,
-                        [e.target.name]: e.target.value,
-                    })
-                }}
-            />
-            <span className="errorMsg">{emailError}</span>
-            <input 
-                name="password"
-                type="password" 
-                value={input.password}
-                placeholder='Password' 
-                className="input" 
-                onChange={(e) => {
-                    setInput({
-                        ...input,
-                        [e.target.name]: e.target.value,
-                    })
-                }}
-            />
-            {/* <span className="errorMsg">{passError}</span> */}
-            <span className="errorMsg">{loginError}</span>
-            <button type="submit" className="btn">Login</button>  
-        </form>
-        </div>
-    )
-}
+    if (handleSearchCredential()) {
+      navigate("/dashboard");
+    } else {
+      setLoginError("Invalid email/password");
+    }
+  };
+  return (
+    <div>
+      <form onSubmit={handleLogin} className="login-container" noValidate>
+        <h1 className="app-name">
+          Dae<span>bank</span>
+        </h1>
+        <input
+          name="email"
+          type="email"
+          value={input.email}
+          placeholder="Email"
+          className="input"
+          onChange={(e) => {
+            setInput({
+              ...input,
+              [e.target.name]: e.target.value,
+            });
+          }}
+        />
+        <span className="errorMsg">{emailError}</span>
+        <input
+          name="password"
+          type="password"
+          value={input.password}
+          placeholder="Password"
+          className="input"
+          onChange={(e) => {
+            setInput({
+              ...input,
+              [e.target.name]: e.target.value,
+            });
+          }}
+        />
+        {/* <span className="errorMsg">{passError}</span> */}
+        <span className="errorMsg">{loginError}</span>
+        <button type="submit" className="btn">
+          Login
+        </button>
+      </form>
+    </div>
+  );
+};
 
 export default Login;

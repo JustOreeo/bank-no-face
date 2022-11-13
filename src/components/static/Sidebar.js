@@ -20,7 +20,8 @@ const Sidebar = () => {
                     {menuItem.map((item, index) => (
                     <li  key={index}>
                         <NavLink  to={item.path}  className="">
-                            <i className={`${item.name==="Dashboard" ? "fa-solid fa-table-list" : ""}
+                            <i className={`${item.name==="Dashboard"&&"fa-solid fa-chart-line"}
+                                ${item.name==="Transaction"&&"fa-solid fa-table-list"}
                                 ${item.name==="Create Account" ? "fa-solid fa-user-plus" : ""}
                                 ${item.name==="Users" ? "fa-solid fa-users-gear" : ""}
                                 ${item.name==="Manage" ? "fa-solid fa-vault" : ""}

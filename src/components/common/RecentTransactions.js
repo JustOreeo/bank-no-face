@@ -2,15 +2,15 @@ import React from "react";
 import { demoRecentTransactions } from "../../constants/demoRecentTransactions";
 
 const RecentTransactions = ({ userInfo }) => {
-  console.log("Recent Transactions User Info: ", userInfo);
-  console.log("Recent Transactions User Role: ", userInfo.role);
-  console.log("Recent Transactions User Email: ", userInfo.email);
+  // console.log("Recent Transactions User Info: ", userInfo);
+  // console.log("Recent Transactions User Role: ", userInfo.role);
+  // console.log("Recent Transactions User Email: ", userInfo.email);
   const recentTransactions = demoRecentTransactions;
   let userTransactions = [];
   recentTransactions.forEach((user) => {
     //get only the transactions from user here
     if (user.from === userInfo.email && userInfo.role === "User") {
-      console.log("User Email", user.from);
+      // console.log("User Email", user.from);
       userTransactions.push(user);
     }
     //if admin all transactions
@@ -19,7 +19,7 @@ const RecentTransactions = ({ userInfo }) => {
     }
   });
   //check user transactions
-  console.log("Transactions Current User: ", userTransactions);
+  // console.log("Transactions Current User: ", userTransactions);
   //headers for table
   const headers = Object.keys(userTransactions[0]);
   //rows value
