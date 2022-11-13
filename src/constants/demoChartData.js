@@ -44,6 +44,11 @@ const demoChartData = [
     date: "11/09/2022",
     money: 10000000,
   },
+  {
+    users: 18,
+    date: "11/10/2022",
+    money: 9000000,
+  },
 ];
 
 export { demoChartData };

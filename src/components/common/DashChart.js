@@ -1,22 +1,28 @@
 import React, { Component } from "react";
 import Chart from "react-apexcharts";
-import { demoChartData } from "../../constants/demoChartData";
+import { demoUsers } from "../../constants/demoUsers";
 
 class DashChart extends Component {
   constructor(props) {
     super(props);
-    const yTotalUsers = demoChartData.map((chartdata) => chartdata.users);
-    const yTotalMoney = demoChartData.map((chartdata) => chartdata.money);
-    const xDate = demoChartData.map((chartdata) => {
-      return `${chartdata.date} GMT`;
+
+    /* replace "demoUsers" with actual users list from local storage */
+    const userCountByDate = {};
+    demoUsers.forEach(({ dateCreated }) => {
+      userCountByDate[dateCreated] = (userCountByDate[dateCreated] || 0) + 1;
     });
 
-    console.table(
-      "12345678945612345678945612315648123",
-      yTotalUsers,
-      yTotalMoney,
-      xDate
+    const userCount = Object.entries(userCountByDate).map(
+      ([dateCreated, users]) => ({ dateCreated, users })
     );
+
+    const yTotalUsers = userCount.map((chartdata) => chartdata.users);
+    /* const yTotalMoney = demoChartData.map((chartdata) => chartdata.money); */
+    const xDate = userCount.map((chartdata) => {
+      return `${chartdata.dateCreated}`;
+    });
+
+    console.table("1234567894561234567894561231564811231", userCount);
 
     this.state = {
       series: [
@@ -25,11 +31,11 @@ class DashChart extends Component {
           type: "line",
           data: [...yTotalUsers],
         },
-        {
+        /*         {
           name: "Money in the Bulsa",
           type: "column",
           data: [...yTotalMoney],
-        },
+        }, */
       ],
       options: {
         chart: {
@@ -40,8 +46,10 @@ class DashChart extends Component {
           type: "line",
           fontFamily: "inherit",
         },
+
         stroke: {
-          width: [2, 4],
+          width: [6, 4],
+          /* colors: ["#00FF00"], */
         },
         title: {
           text: "Daily New Account",
@@ -55,13 +63,16 @@ class DashChart extends Component {
             color: "green",
           },
         },
+
         dataLabels: {
           enabled: false,
         },
         labels: [...xDate],
         xaxis: {
+          type: "category",
           range: 4,
         },
+
         yaxis: [
           {
             /* title: {
