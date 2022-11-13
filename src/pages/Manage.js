@@ -6,7 +6,14 @@ import { demoUsers } from "../constants/demoUsers";
 
 const Manage = () => {
   //Load accounts from the localStorage
-  let loadAccounts = Array.from(JSON.parse(localStorage.getItem("accounts")));
+  //check if user from local storage is not empty
+  const checkAccounts=JSON.parse(localStorage.getItem("users"));
+  let setAccounts="";
+  if(checkAccounts){
+    setAccounts=checkAccounts
+  }
+  //let loadAccounts = Array.from(JSON.parse(localStorage.getItem("accounts")));
+  let loadAccounts = Array.from(setAccounts);
   // UseState to store data
   const [accounts, setMyAccounts] = useState(loadAccounts);
   const [email, setEmail] = useState();
@@ -20,9 +27,10 @@ const Manage = () => {
         account.balance = balance;
       }
     });
-    localStorage.setItem("accounts", JSON.stringify(accounts));
+    //localStorage.setItem("accounts", JSON.stringify(accounts));
+    localStorage.setItem("users", JSON.stringify(accounts));
     const reloadAccounts = Array.from(
-      JSON.parse(localStorage.getItem("accounts"))
+      JSON.parse(localStorage.getItem("users"))
     );
     setMyAccounts(reloadAccounts);
   }, [balance]);

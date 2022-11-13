@@ -5,10 +5,33 @@ import TargetAccount from '../components/Transfers/TargetAccount';
 
 const Transfers = () => {
     
-
 //Load accounts from the localStorage
-const accounts = Array.from(JSON.parse(localStorage.getItem('accounts')))
-const loadHistory = Array.from(JSON.parse(localStorage.getItem('history')))
+//check if user from local storage is not empty
+const checkAccounts=JSON.parse(localStorage.getItem("users"));
+let setAccounts="";
+if(checkAccounts){
+    setAccounts=checkAccounts
+}
+//get all users except admin
+  const getAccounts=[];
+  setAccounts.forEach(user => {
+    if(user.role!=="Admin"){
+      getAccounts.push(user)
+    }
+  });
+  console.log(getAccounts);
+
+//const accounts = Array.from(JSON.parse(localStorage.getItem('accounts')))
+let accounts = Array.from(getAccounts);
+
+//check if history from local storage is not empty
+const checkHistory=JSON.parse(localStorage.getItem("history"));
+let setUserHistory="";
+if(checkHistory){
+setUserHistory=checkHistory
+}
+//const loadHistory = Array.from(JSON.parse(localStorage.getItem('history')))
+const loadHistory = Array.from(setUserHistory)
 let getUser = JSON.parse(localStorage.getItem('loggedInUser'))
 
 // UseState to store data

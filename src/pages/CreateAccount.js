@@ -15,9 +15,10 @@ const CreateAccount = () => {
   const [createAccountState, setCreateAccountState] = useState(fieldsState);
   const userHistory = JSON.parse(localStorage.getItem("users"));
   const [createAccError, setCreateAccError] = useState("");
-  if (userHistory === null) {
+  //can't be null because of admin user
+  /*if (userHistory === null) {
     localStorage.setItem("users", JSON.stringify([]));
-  }
+  }*/
 
   // Automatically handle the input state
   const handleChange = (e) => {
@@ -42,13 +43,15 @@ const CreateAccount = () => {
 
     if (!found) {
       setCreateAccError("");
+      //make balance into integer
+      createAccountState.balance=parseInt(createAccountState.balance)
       createAccountState.role = "User";
       userHistory.push(createAccountState);
       localStorage.setItem("users", JSON.stringify(userHistory));
       navigate("/users");
     }
   };
-
+  
   return (
     <>
       <div className="p-4">

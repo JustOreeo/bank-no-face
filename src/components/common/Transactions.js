@@ -11,45 +11,50 @@ const Transactions = ({ userInfo, showTransaction }) => {
   const [empty, setEmpty] = useState("");
 
   const menuItem = sideMenu;
-
-  console.log(
+  /*console.log(
     "AJSKDGKADGADSADSaaADSHJADSHJADSHJADSHJADSHJADSHJADSHJADSHJADSHADS",
     menuItem
-  );
-
-  const getHistory = Array.from(JSON.parse(localStorage.getItem('history')))
-
+  );*/
+  //check if history from local storage is not empty
+  const checkHistory=JSON.parse(localStorage.getItem("history"));
+  let setUserHistory="";
+  if(checkHistory){
+    setUserHistory=checkHistory
+  }
+  //const getHistory = Array.from(JSON.parse(localStorage.getItem('history')))
+  const getHistory = Array.from(setUserHistory)
   const [history, setHistory] = useState(getHistory)
- 
-
   const recentTransactions = history;
   let userTransactions = [];
-  recentTransactions.map((user, index) => {
-    // console.log("Lenght:", userTransactions.length);
-    //get only the transactions from user here
-    if (user.from === userInfo.email && userInfo.role === "User") {
-      // console.log("CHECK:", index);
-      // console.log("User Email", user.from);
-      //filter to 5 transactions only
-      if (showTransaction === "All") {
-        userTransactions.push(user);
-      } else {
-        if (userTransactions.length < 5) {
+  if(history){
+    recentTransactions.map((user) => {
+      // console.log("Lenght:", userTransactions.length);
+      //get only the transactions from user here
+      if (user.from === userInfo.email && userInfo.role === "User") {
+        // console.log("CHECK:", index);
+        // console.log("User Email", user.from);
+        //filter to 5 transactions only
+        if (showTransaction === "All") {
           userTransactions.push(user);
+        } else {
+          if (userTransactions.length < 5) {
+            userTransactions.push(user);
+          }
         }
       }
-    }
-    //if admin all transactions
-    if (userInfo.role === "Admin") {
-      if (showTransaction === "All") {
-        userTransactions.push(user);
-      } else {
-        if (userTransactions.length < 5) {
+      //if admin all transactions
+      if (userInfo.role === "Admin") {
+        if (showTransaction === "All") {
           userTransactions.push(user);
+        } else {
+          if (userTransactions.length < 5) {
+            userTransactions.push(user);
+          }
         }
       }
-    }
-  });
+    });
+  }
+ 
   useEffect(() => {
     if (userTransactions.length === 0) {
       setEmpty("true");
@@ -106,7 +111,7 @@ const Transactions = ({ userInfo, showTransaction }) => {
             ))}
             {empty === "true" && (
               <tr>
-                <td>Nothing to show here</td>
+                <td>No transactions yet</td>
               </tr>
             )}
           </tbody>

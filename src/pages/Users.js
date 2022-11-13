@@ -85,7 +85,7 @@ const Users = () => {
               ))}
               {empty === "true" && (
                 <tr>
-                  <td>Nothing to show here</td>
+                  <td>No users yet</td>
                 </tr>
               )}
             </tbody>
