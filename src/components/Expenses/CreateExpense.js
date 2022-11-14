@@ -1,8 +1,8 @@
 /* eslint-disable no-restricted-globals */
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { toast } from "react-toastify";
 import useProfile from '../hooks/useProfile';
-
+import uuid from 'react-uuid';
 const AddExpense = ({expenses, setExpenses,userInfo}) => {
     const {user} = useProfile();
     console.log("addexpense: ",user.email)   
@@ -11,6 +11,7 @@ const AddExpense = ({expenses, setExpenses,userInfo}) => {
     const [expenseName, setExpenseName]=useState('');
     const [category, setCategory]=useState('');
     const [amount, setAmount]=useState('');
+    const expenseHistory= JSON.parse(localStorage.getItem('expenses'))
 
     const showToastMessage = (isSuccess) => {
         if(isSuccess === true) {
@@ -23,7 +24,14 @@ const AddExpense = ({expenses, setExpenses,userInfo}) => {
           });
         }
     };
-    
+    //Get Total Expense
+    let total=0;
+    expenseHistory.map((expense)=>{
+        if(expense.email===user.email){
+            total+=expense.amount
+            console.log("check user email:")
+        }
+    })
     // form submit event
     const handleAddExpenseSubmit = async (e) => {
         e.preventDefault();
@@ -34,6 +42,7 @@ const AddExpense = ({expenses, setExpenses,userInfo}) => {
             amount
         }
         //add user email
+        expense.id=uuid()
         expense.email=user.email
         expense.amount=parseInt(expense.amount)
         if (!expenseName || !category || !amount) {
@@ -46,8 +55,10 @@ const AddExpense = ({expenses, setExpenses,userInfo}) => {
         setCategory('');
         setAmount('');
         
+         
     }
-
+ 
+    console.log("Total Expense",total)
     return (
         <div className=''>
             <div className=''>

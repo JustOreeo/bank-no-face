@@ -10,21 +10,28 @@ history, setHistory, user}) => {
   let getAccounts=[];
   let currentUser;
   const currentUserEmail=user;
+  console.log(currentUserEmail)
+
   accounts.forEach(user => {
-    //get current user info
+    
     if(user.email===currentUserEmail){
       currentUser=user;
+      console.log("Test",currentUser)
     }
-    if(user.role!=="Admin"){
-      if(currentUser.role==="User"&&user.email===currentUserEmail){
-        getAccounts.push(user)
-      }
-      if(currentUser.role==="Admin"){
-        getAccounts.push(user);
-      }
-    }
-    
+
+  })
+  accounts.forEach(user => {
+   
+      if(user.role!=="Admin"){
+        if(currentUser.role==="User"&&user.email===currentUserEmail){
+          getAccounts.push(user)
+        }
+        if(currentUser.role==="Admin"){
+          getAccounts.push(user)
+        }
+      }  
   });
+  
   console.log("Check Accounts: ",getAccounts);
   
   //check if there's no user except admin

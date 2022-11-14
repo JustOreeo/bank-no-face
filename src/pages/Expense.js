@@ -21,17 +21,22 @@ const Expense = () => {
   console.log("expense:",user)
    // main array of objects state || expense state || expense array of objects
   const [expenses, setExpenses]=useState(getDatafromLS());
-  const [totalExpense,setTotalExpense]=useState('')
-  console.log("table expense:",user)
 
+  console.log("table expense:",user)
+  const expenseHistory= JSON.parse(localStorage.getItem('expenses'))
 
   // saving data to local storage
   useEffect(()=>{
-    localStorage.setItem('expenses',JSON.stringify(expenses));
+    if (expenseHistory === null) {
+      localStorage.setItem("expenses", JSON.stringify([]));
+    }else{
+      localStorage.setItem('expenses',JSON.stringify(expenses));
+    }
   },[expenses])
 
   return (
       <div>
+            <h2 className="component-header">Budget</h2>
           <div>Balance: {user.balance}</div>
           <AddExpense expenses={expenses} setExpenses={setExpenses}/>
           <ExpenseTable expenses={expenses} setExpenses={setExpenses}/> 

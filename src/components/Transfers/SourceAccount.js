@@ -19,12 +19,12 @@ const SourceAccount = ({accounts, setSourceEmail, sourceEmail, setSourceBalance,
     }
     
       return (
-        <div>
+        <div className='flex flex-col'>
              <select className="select w-full max-w-xs" onChange={targetAccountHandler}>
-             <option>Select an account</option>
-            {accounts.map((account, index) => { return(
-                <option key={index} value={account.email} >{account.name}</option>
-            )})}
+                <option>Select Account</option>
+                {accounts.map((account, index) => { return(
+                  <option key={index} value={account.email} >{account.name}</option>
+                )})}
             </select>
         </div>
       )
