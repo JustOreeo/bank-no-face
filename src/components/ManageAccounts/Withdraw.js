@@ -1,4 +1,5 @@
-import React,  {useEffect} from 'react'
+import React,  {useEffect} from 'react';
+import { toast } from "react-toastify";
 
 const Withdraw = ({input, setBalance, balance, setInput, setHistory, history, user, email}) => {
 
@@ -19,25 +20,53 @@ useEffect(() => {
   }, [history])
   
 const withdrawHandler = () => {
-  if(input === ''){alert('Please enter an amount to proceed');}
-  else if(input === '0'){alert('Please enter an amount to proceed');}
-  else if(input > 500000){alert('Maximum withdrawal amount reached. Please withdraw an amount that is equal or lower than 500,000 pesos');}
-  else if(input < 500){alert('Minimum withdrawal amount reached. Please withdraw an amount that is equal or greater than 500 pesos');}
-  else if(input > balance && balance !== 0 ){alert('Withdrawal amount is greater than the current balance');}
-  else if(input > balance && balance === 0) {alert('Insufficient funds! Please deposit money on your account');}
+  if(input === '') {
+    toast.error('Please enter an amount to proceed', {
+      position: toast.POSITION.TOP_RIGHT
+    });
+  }
+  else if(input === '0') {
+    toast.error('Please enter an amount to proceed', {
+      position: toast.POSITION.TOP_RIGHT
+    });
+  }
+  else if(input > 500000) {
+    toast.error('Maximum withdrawal amount reached. Please withdraw an amount that is equal or lower than 500,000 pesos', {
+      position: toast.POSITION.TOP_RIGHT
+    });
+  }
+  else if(input < 500) {
+    toast.error('Minimum withdrawal amount reached. Please withdraw an amount that is equal or greater than 500 pesos', {
+      position: toast.POSITION.TOP_RIGHT
+    });
+  }
+  else if(input > balance && balance !== 0 ) {
+    toast.error('Withdrawal amount is greater than the current balance', {
+      position: toast.POSITION.TOP_RIGHT
+    });
+  }
+  else if(input > balance && balance === 0) {
+    toast.error('Insufficient funds! Please deposit money on your account', {
+      position: toast.POSITION.TOP_RIGHT
+    });
+  }
   else {
     setBalance(balance - parseInt(input))
     setHistory([
-            ...history,
-            {createdby: `${user}`,
-             date: `${dateStamp}`, 
-             time:`${timeStamp}`, 
-             type:'Withdraw', 
-             amount: `${enteredAmount}`, 
-             sender: `${email}`, 
-              receiver: `${email}`, 
-        }
-        ])
+      ...history,
+      {
+        createdby: `${user}`,
+        date: `${dateStamp}`, 
+        time:`${timeStamp}`, 
+        type:'Withdraw', 
+        amount: `${enteredAmount}`, 
+        sender: `${email}`, 
+        receiver: `${email}`, 
+      }
+    ])
+    toast.success('Withdraw Successfull', {
+      position: toast.POSITION.TOP_RIGHT
+    });
   }
 } 
 

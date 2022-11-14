@@ -29,17 +29,17 @@ const Login = () => {
             user.email === input.email && user.password === input.password
           );
           if (user.email === input.email) {
-          found = true;
-          setIsAvailable([true, false]);
-          if (user.password === input.password) {
-            //localStorage.setItem("loggedIn", true);
-            const loggedInUser = { isLoggedin: "true", email: user.email };
-            localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
-            console.log("loggedIn?");
-            setIsAvailable([true, true]);
-            localStorage.setItem("accounts", JSON.stringify(demoUsers));
-            localStorage.setItem('history', JSON.stringify([]))
-            }
+            found = true;
+            setIsAvailable([true, false]);
+            if (user.password === input.password) {
+              //localStorage.setItem("loggedIn", true);
+              const loggedInUser = { isLoggedin: "true", email: user.email };
+              localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
+              console.log("loggedIn?");
+              setIsAvailable([true, true]);
+              localStorage.setItem("accounts", JSON.stringify(demoUsers));
+              localStorage.setItem('history', JSON.stringify([]))
+              }
           } else {
           return isAvailable;
           }

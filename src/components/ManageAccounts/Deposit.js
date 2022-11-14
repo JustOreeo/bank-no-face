@@ -1,4 +1,5 @@
-import React, {useEffect } from 'react'
+import React, {useEffect } from 'react';
+import { toast } from "react-toastify";
 
 const Deposit = ({balance, setBalance, input, setInput, setHistory, history, user, email}) => {
 console.log(email)
@@ -15,23 +16,42 @@ const dateStamp = new Intl.DateTimeFormat('en-US', {year: 'numeric', month: '2-d
 .format(currentDate)
 
 const depositHandler = () => {
-  if(input === ''){alert('Please enter an amount to proceed');}
-  else if(input === '0'){alert('Please enter an amount to proceed');}
-  else if(input > 500000){alert('Maximum allowed deposit reached. Please enter an amount that is equal or lower than 500,000 pesos')}
-  else if(input < 500){alert('Minimum allowed deposit reached. Please enter an amount that is equal or greater than 500 pesos')}
-  else{
+  if(input === '') {
+    toast.error('Please enter an amount to proceed', {
+      position: toast.POSITION.TOP_RIGHT
+    });
+  }
+  else if(input === '0') {
+    toast.error('Please enter an amount to proceed', {
+      position: toast.POSITION.TOP_RIGHT
+    });
+  }
+  else if(input > 500000) {
+    toast.error('Maximum allowed deposit reached. Please enter an amount that is equal or lower than 500,000 pesos', {
+      position: toast.POSITION.TOP_RIGHT
+    });
+  }
+  else if(input < 500) {
+    toast.error('Minimum allowed deposit reached. Please enter an amount that is equal or greater than 500 pesos', {
+      position: toast.POSITION.TOP_RIGHT
+    });
+  }
+  else {
     setBalance(balance + parseInt(input))
-      setHistory([
-        ...history,
-        {createdby: `${user}`,
-        date: `${dateStamp}`, 
-        time:`${timeStamp}`, 
-        type:'Deposit', 
-        amount: `${enteredAmount}`, 
-        sender: `${email}`, 
-        receiver: `${email}`, 
-        }
+    setHistory([
+      ...history,
+      {createdby: `${user}`,
+      date: `${dateStamp}`, 
+      time:`${timeStamp}`, 
+      type:'Deposit', 
+      amount: `${enteredAmount}`, 
+      sender: `${email}`, 
+      receiver: `${email}`, 
+      }
     ])
+    toast.success('Deposit Successfull', {
+      position: toast.POSITION.TOP_RIGHT
+    });
   }
 }
 

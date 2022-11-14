@@ -1,10 +1,19 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { toast } from "react-toastify";
 
 const ExpenseTable = ({expenses,setExpenses}) => {
+    const showToastMessage = (isSuccess) => {
+        if(isSuccess === true) {
+            toast.success('Expense Deleted Successfully!', {
+              position: toast.POSITION.TOP_RIGHT
+          });
+        } 
+    };
     // delete expense
     const deleteExpenses=(amount)=>{
-        const filteredExpenses=expenses.filter((element,index)=>{
+        const filteredExpenses = expenses.filter((element,index) => {
+            showToastMessage(true);
             return element.amount !== amount
         })
         setExpenses(filteredExpenses);

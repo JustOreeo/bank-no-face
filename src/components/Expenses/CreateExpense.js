@@ -1,14 +1,27 @@
 /* eslint-disable no-restricted-globals */
 import React, { useState } from 'react';
+import { toast } from "react-toastify";
 
 const AddExpense = ({expenses, setExpenses}) => {
     // input field states
     const [expenseName, setExpenseName]=useState('');
     const [category, setCategory]=useState('');
     const [amount, setAmount]=useState('');
+
+    const showToastMessage = (isSuccess) => {
+        if(isSuccess === true) {
+          toast.success('Expense Added Successfully!', {
+              position: toast.POSITION.TOP_RIGHT
+          });
+        } else {
+          toast.error('Please complete all fields!', {
+            position: toast.POSITION.TOP_RIGHT
+          });
+        }
+    };
     
     // form submit event
-    const handleAddExpenseSubmit=(e)=>{
+    const handleAddExpenseSubmit = async (e) => {
         e.preventDefault();
         // creating an object
         let expense={
@@ -17,10 +30,15 @@ const AddExpense = ({expenses, setExpenses}) => {
             amount
         }
 
-        setExpenses([...expenses,expense]);
+        if (!expenseName || !category || !amount) {
+            showToastMessage(false);
+            return
+        }
+        await setExpenses([...expenses,expense]);
+        showToastMessage(true)
         setExpenseName('');
         setCategory('');
-        setAmount('');
+        setAmount('');  
     }
 
     return (
@@ -30,7 +48,7 @@ const AddExpense = ({expenses, setExpenses}) => {
                 <form autoComplete="off" className='' onSubmit={handleAddExpenseSubmit}>
                 <div className='mb-3 xl:w-96'>
                     <label className='text-xs'>Expense Name</label>
-                    <input type="text" className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-green-600 focus:outline-none' required
+                    <input type="text" className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-green-600 focus:outline-none'
                     onChange={(e)=>setExpenseName(e.target.value)} value={expenseName}></input>
                 </div>
                 <div className='mb-3 xl:w-96'>
@@ -50,7 +68,7 @@ const AddExpense = ({expenses, setExpenses}) => {
                     </select>
                 </div>
                 <div className='mb-3 xl:w-96'>
-                    <input type="number" placeholder='Amount' className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-green-600 focus:outline-none' required
+                    <input type="number" placeholder='Amount' className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-green-600 focus:outline-none'
                     onChange={(e)=>setAmount(e.target.value)} value={amount}></input>
                 </div>
                 <button type="submit" className='btn btn-sm border-none bg-primary rounded-xl normal-case'>

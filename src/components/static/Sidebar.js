@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { sideMenu } from "../../constants/sideMenu";
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Sidebar = () => {
     const menuItem = sideMenu
@@ -9,7 +10,7 @@ const Sidebar = () => {
     const handleLogout = () => {
         //localStorage.removeItem("loggedIn");
         localStorage.removeItem("loggedInUser");
-        localStorage.removeItem('accounts')
+        localStorage.removeItem('accounts');
         navigate("/login");
     }
     

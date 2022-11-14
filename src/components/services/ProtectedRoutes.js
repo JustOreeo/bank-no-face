@@ -3,6 +3,9 @@ import { Outlet, Navigate } from "react-router-dom";
 import Sidebar from "../static/Sidebar";
 import Greeting from "../static/Greeting";
 import  useProfile,{ ProfileContext} from '../hooks/useProfile';
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 const ProtectedRoutes = () => {
   const {user, setUser} = useProfile();
   const auth = localStorage.getItem("loggedInUser")
@@ -27,6 +30,7 @@ const ProtectedRoutes = () => {
                   <div className='p-4'>
                       <Greeting />
                       <Outlet />
+                      <ToastContainer />
                   </div> 
               </div>
           </ProfileContext.Provider>

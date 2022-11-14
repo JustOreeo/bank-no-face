@@ -26,7 +26,7 @@ const CreateAccount = () => {
     setCreateAccountState({ ...createAccountState, [name]: value });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     let found = false;
     console.log("History", userHistory);
     console.log("State", createAccountState);
@@ -38,6 +38,7 @@ const CreateAccount = () => {
         console.log("user exists");
         setCreateAccError("User Already Exists");
         found = true;
+        return
       }
     });
 
