@@ -20,7 +20,6 @@ const TargetAccount = ({accounts, setTargetEmail, targetEmail, setTargetBalance,
       return (
         <div className='flex flex-col'>
             <select className="select w-full max-w-xs" onChange={targetAccountHandler}>
-                <option>Select Account</option>
               {accounts.map((account, index) => { return(
                 <option key={index} value={account.email} >{account.name}</option>
               )})}

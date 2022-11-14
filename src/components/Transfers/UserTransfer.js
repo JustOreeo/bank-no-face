@@ -122,8 +122,7 @@ const UserTransfer = () => {
             }else{
                 setError("User does not exists")
             }
-            
-          }
+        }
       }
       console.log(`This is the source ${sourceEmail}`)
       console.log(`This is the source balance ${sourceBalance}`)
