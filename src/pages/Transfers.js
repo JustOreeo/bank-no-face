@@ -63,25 +63,12 @@ useEffect(() => {
             account.balance = sourceBalance
         }
     })
-   /* const users = JSON.parse(localStorage.getItem("users"));
-    let found=false;
-    users.filter(user => {
-        if(user.role==="Admin"){
-            found=true;
-        }
-    });
-    if(found===false){
-        accounts.splice(0,0,{name: "Admin Admin",email: "admin@admin",password: "12345678",balance: 100 ,role: "Admin"})
-    }
-*/
 
 localStorage.setItem('users', JSON.stringify(storedAccounts))
 }, [sourceBalance])
 
 useEffect(() => {storedAccounts.map(account => {if(targetEmail === account.email){
     account.balance = targetBalance}})
-    //add admin again
-    //accounts.push({name: "Admin Admin",email: "admin@admin",password: "12345678",balance: 100 ,role: "Admin"});
     localStorage.setItem('users', JSON.stringify(storedAccounts))
 }, [targetBalance])
     

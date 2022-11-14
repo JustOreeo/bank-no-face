@@ -441,6 +441,9 @@ table * {
 .main-nav ul li:has(.fa-money-bill-transfer)::before {
   content: "Transfer";
 }
+.main-nav ul li:has(.fa-wallet)::before {
+  content: "Budget";
+}
 .main-nav button:has(.fa-right-from-bracket)::before {
   content: "Logout";
 }
@@ -570,6 +573,10 @@ table * {
 
 [data-role="user"]
   li:is(:has(a[href="/create-account"]), :has([href="/users"])) {
+  display: none;
+}
+[data-role="admin"]
+  li:is(:has(a[href="/expenses"]), :has([href="/users"])) {
   display: none;
 }
 

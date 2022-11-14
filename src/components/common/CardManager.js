@@ -1,6 +1,8 @@
 import React from "react";
-
+import { sideMenu } from "../../constants/sideMenu";
+import { NavLink } from "react-router-dom";
 const CardManager = ({ userInfo }) => {
+  const menuItem = sideMenu;
   const { balance } = userInfo;
   const currencyFormatted = (value) =>
     new Intl.NumberFormat("fil-PH", {
@@ -50,9 +52,9 @@ const CardManager = ({ userInfo }) => {
           <div className="mastercard-logo">mastercard</div>
         </div>
       </div>
-      <div className="manage-link">
-        <p>Manage Card</p>
-      </div>
+      <NavLink className="manage-link" to={menuItem[4].path}>
+        Manage Card 
+      </NavLink>
     </div>
   );
 };

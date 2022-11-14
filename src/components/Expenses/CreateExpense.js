@@ -1,9 +1,13 @@
 /* eslint-disable no-restricted-globals */
 import React, { useState } from 'react';
 import { toast } from "react-toastify";
+import useProfile from '../hooks/useProfile';
 
-const AddExpense = ({expenses, setExpenses}) => {
+const AddExpense = ({expenses, setExpenses,userInfo}) => {
+    const {user} = useProfile();
+    console.log("addexpense: ",user.email)   
     // input field states
+    console.log("asan ka user: ",userInfo)
     const [expenseName, setExpenseName]=useState('');
     const [category, setCategory]=useState('');
     const [amount, setAmount]=useState('');
@@ -29,7 +33,9 @@ const AddExpense = ({expenses, setExpenses}) => {
             category,
             amount
         }
-
+        //add user email
+        expense.email=user.email
+        expense.amount=parseInt(expense.amount)
         if (!expenseName || !category || !amount) {
             showToastMessage(false);
             return
@@ -38,7 +44,8 @@ const AddExpense = ({expenses, setExpenses}) => {
         showToastMessage(true)
         setExpenseName('');
         setCategory('');
-        setAmount('');  
+        setAmount('');
+        
     }
 
     return (
