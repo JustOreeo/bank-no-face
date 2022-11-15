@@ -1,13 +1,8 @@
 import React,{useState,useEffect} from 'react'
 
-
 const UserTransfer = () => {
     const storedAccounts=JSON.parse(localStorage.getItem("users"));
     let getUser = JSON.parse(localStorage.getItem('loggedInUser'))
-    let setAccounts="";
-    if(storedAccounts){
-        setAccounts=storedAccounts
-    }
 
     //check if history from local storage is not empty
     const checkHistory=JSON.parse(localStorage.getItem("history"));
