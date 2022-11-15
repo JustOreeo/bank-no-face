@@ -40,18 +40,35 @@ const ExpenseTable = ({expenses,setExpenses}) => {
     return (
         <>
             <div className='overflow-x-auto pt-5 w-full'>
-                {totalExpense===0&&
-                     <>
-                        <div>Expense: {total}</div>
-                        <div>Total: {user.balance-total}</div>
-                    </>
-                }
-                {totalExpense!==0&&
-                    <>
-                        <div>Expense: {totalExpense}</div>
-                        <div>Total: {user.balance-totalExpense}</div>
-                    </>
-                }
+                <div className='stats shadow w-full p-0 mb-1'>
+                    <div className='stat'>
+                    <div className='stat-title'>Balance</div>
+                    <div class="stat-figure">
+                        <i class="fa-regular fa-credit-card"></i>
+                    </div>
+                    <div children='stat-value'> {user.balance}</div>
+                    </div>
+
+                    <div className='stat'>
+                    <div className='stat-title'>Expense</div>
+                    <div class="stat-figure">
+                        <i class="fa-solid fa-hand-holding-dollar"></i>
+                    </div>
+                    {totalExpense===0?
+                        <div children='stat-value'>{total}</div>:<div children='stat-value'>{totalExpense}</div>
+                    }
+                    </div>
+
+                    <div className='stat'>
+                    <div className='stat-title'>Total</div>
+                    <div class="stat-figure">
+                        <i class="fa-solid fa-sack-dollar"></i>
+                    </div>
+                    {totalExpense===0?
+                        <div children='stat-value'> {user.balance-total}</div>:<div children='stat-value'> {user.balance-totalExpense}</div>
+                    }
+                    </div>
+                </div>
                 {userExpenses.length>0&&
                     <>
                     <div className=''>

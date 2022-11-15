@@ -13,6 +13,13 @@
   background: #66a659;
   color: #041a00;
 }
+.closeBtn {
+  border-radius: 40px;
+  border: none;
+  text-align: center;
+  background: #66a659;
+  color: #041a00;
+}
 .disabled {
   cursor: not-allowed;
   pointer-events: none;
