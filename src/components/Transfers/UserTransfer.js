@@ -155,7 +155,7 @@ const UserTransfer = () => {
         <div>
             <h2 className="component-header">Transfer</h2>
             <div className='flex flex-col border-solid border-2 '>
-                <div>Balance: {userBalance}</div>
+                <div>Balance: {sourceBalance}</div>
                 <input placeholder='Transfer to'  onChange={e => emailHandler(e)} type='text' className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-green-600 focus:outline-none'/>
                 <div>{error}</div>
                 <div className='pt-5 pb-5'>
