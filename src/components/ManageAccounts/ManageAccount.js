@@ -41,7 +41,7 @@ return (
             <div className="modal-box relative h-screen w-screen">
             <label htmlFor="my-modal-3" className="absolute right-2 top-2">✕</label>
             <h3 className="text-lg font-bold">Manage Account: {email}</h3>
-            <div className="stats bg-primary text-primary-content">
+            <div className="stats bg-green-700 text-primary-content">
                 <div className="stat w-96">
                     <div className="stat-title">Account balance</div>
                     <div className="stat-value">&#8369; {formatNumber}</div>
