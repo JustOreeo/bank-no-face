@@ -2,8 +2,18 @@ import React, { useState, useEffect } from "react";
 import SelectAccount from "../components/ManageAccounts/SelectAccount";
 import SourceAccount from "../components/Transfers/SourceAccount";
 import TargetAccount from "../components/Transfers/TargetAccount";
+import Dialog from "../components/common/Dialog";
 
 const Transfers = () => {
+  const [dialogue, setDialogue] = useState({
+    message: "",
+    isLoading: false,
+  });
+
+  const handleDialog = (message, isLoading) => {
+    setDialogue({ message, isLoading });
+  };
+
   //Load accounts from the localStorage
   //check if user from local storage is not empty
   const storedAccounts = JSON.parse(localStorage.getItem("users"));
@@ -106,35 +116,46 @@ const Transfers = () => {
   };
 
   const transferHandler = (e) => {
-    if (input === "") {
-      alert("Please enter an amount to proceed");
-    } else if (input < 500) {
-      alert(
-        "Minimum transfer amount reached. Please enter an amount that is equal or greater than 500 pesos"
-      );
-    } else if (input > 500000) {
-      alert(
-        "Maximum transfer amount reached. Please enter an amount that is equal or lower than 500000 pesos"
-      );
-    } else if (sourceEmail === targetEmail && input > 500 && input < 500000) {
-      alert(
-        "Source account is the same as the target account. Please select a different target account"
-      );
+    handleDialog("confirm transfer?", true);
+  };
+
+  const transferConfirmation = (transferChoice) => {
+    if (transferChoice) {
+      if (input === "") {
+        alert("Please enter an amount to proceed");
+      } else if (input < 500) {
+        alert(
+          "Minimum transfer amount reached. Please enter an amount that is equal or greater than 500 pesos"
+        );
+      } else if (input > 500000) {
+        alert(
+          "Maximum transfer amount reached. Please enter an amount that is equal or lower than 500000 pesos"
+        );
+      } else if (sourceEmail === targetEmail && input > 500 && input < 500000) {
+        alert(
+          "Source account is the same as the target account. Please select a different target account"
+        );
+      } else {
+        setSourceBalance(sourceBalance - parseInt(input));
+        setTargetBalance(targetBalance + parseInt(input));
+        setHistory([
+          ...history,
+          {
+            createdby: `${user}`,
+            date: `${dateStamp}`,
+            time: `${timeStamp}`,
+            type: "Transfer",
+            amount: `${enteredAmount}`,
+            sender: `${sourceEmail}`,
+            receiver: `${targetEmail}`,
+          },
+        ]);
+      }
+      handleDialog("", false);
+      setInput("");
     } else {
-      setSourceBalance(sourceBalance - parseInt(input));
-      setTargetBalance(targetBalance + parseInt(input));
-      setHistory([
-        ...history,
-        {
-          createdby: `${user}`,
-          date: `${dateStamp}`,
-          time: `${timeStamp}`,
-          type: "Transfer",
-          amount: `${enteredAmount}`,
-          sender: `${sourceEmail}`,
-          receiver: `${targetEmail}`,
-        },
-      ]);
+      handleDialog("", false);
+      return;
     }
   };
 
@@ -190,6 +211,9 @@ const Transfers = () => {
           </button>
         </div>
       </div>
+      {dialogue.isLoading && (
+        <Dialog onDialog={transferConfirmation} message={dialogue.message} />
+      )}
     </>
   );
 };
