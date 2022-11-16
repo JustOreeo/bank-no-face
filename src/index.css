@@ -575,7 +575,10 @@ table * {
   li:is(:has(a[href="/create-account"]), :has([href="/users"])) {
   display: none;
 }
-
+[data-role="admin"]
+  li:is(:has(a[href="/expenses"]), :has([href="/users"])) {
+  display: none;
+}
 .green-button.view-more {
   font-size: 0.7rem;
   padding: 0.25rem;

@@ -30,7 +30,7 @@ const Transactions = ({ userInfo, showTransaction }) => {
     recentTransactions.map((user) => {
       // console.log("Lenght:", userTransactions.length);
       //get only the transactions from user here
-      if (user.receiver === userInfo.email && userInfo.role === "User") {
+      if (user.sender === userInfo.email && userInfo.role === "User") {
         // console.log("CHECK:", index);
         // console.log("User Email", user.from);
         //filter to 5 transactions only
