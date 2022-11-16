@@ -14,4 +14,4 @@ const Transfers = () => {
     )
 }
 
-export default Transfers
+export default Transfers;

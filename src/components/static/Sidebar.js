@@ -1,19 +1,38 @@
 import { NavLink } from "react-router-dom";
 import { sideMenu } from "../../constants/sideMenu";
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import Dialog from "../common/Dialog";
+import { useState } from "react";
 
 const Sidebar = () => {
-    const menuItem = sideMenu
-    const navigate = useNavigate();
+  const menuItem = sideMenu;
+  const navigate = useNavigate();
 
-    const handleLogout = () => {
-        //localStorage.removeItem("loggedIn");
-        localStorage.removeItem("loggedInUser");
-        localStorage.removeItem('accounts');
-        navigate("/login");
+  const [dialogue, setDialogue] = useState({
+    message: "",
+    isLoading: false,
+  });
+  const handleDialog = (message, isLoading) => {
+    setDialogue({ message, isLoading });
+  };
+
+  const logOutConfirmation = (logOutChoice) => {
+    if (logOutChoice) {
+      localStorage.removeItem("loggedInUser");
+      localStorage.removeItem("accounts");
+      navigate("/login");
+    } else {
+      handleDialog("", false);
+      return;
     }
-    
+  };
+
+  const handleLogout = () => {
+    handleDialog("logout?", true);
+    //localStorage.removeItem("loggedIn");
+  };
+
     return (
         <>
             <nav className="main-nav">
@@ -38,6 +57,9 @@ const Sidebar = () => {
                     <i className="fa-solid fa-right-from-bracket"></i>
                 </button>
             </nav>
+            {dialogue.isLoading && (
+              <Dialog onDialog={logOutConfirmation} message={dialogue.message} />
+            )}
         </>
     )
 }
