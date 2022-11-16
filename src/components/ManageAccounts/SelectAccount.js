@@ -1,17 +1,39 @@
 import React, {useEffect, useState} from 'react'
+import { useFetcher } from 'react-router-dom';
 import ManageAccount from './ManageAccount'
 
 const SelectAccount = ({accounts, setEmail, setBalance, email, balance, setInput, input,
 history, setHistory, user}) => {
   const [empty, setEmpty] = useState("");
   //get all users except admin
-  const getAccounts=[];
+  let loadAccounts=[];
+  let getAccounts=[];
+  let currentUser;
+  const currentUserEmail=user;
+  console.log(currentUserEmail)
+
   accounts.forEach(user => {
-    if(user.role!=="Admin"){
-      getAccounts.push(user)
+    
+    if(user.email===currentUserEmail){
+      currentUser=user;
+      console.log("Test",currentUser)
     }
+
+  })
+  accounts.forEach(user => {
+   
+      if(user.role!=="Admin"){
+        if(currentUser.role==="User"&&user.email===currentUserEmail){
+          getAccounts.push(user)
+        }
+        if(currentUser.role==="Admin"){
+          getAccounts.push(user)
+        }
+      }  
   });
-  console.log(getAccounts);
+  
+  console.log("Check Accounts: ",getAccounts);
+  
   //check if there's no user except admin
   useEffect(() => {
     if (getAccounts.length === 0) {
@@ -20,7 +42,7 @@ history, setHistory, user}) => {
       setEmpty("false");
     }
     console.log("Accounts length",getAccounts.length)
-  
+    console.log("User: ", user)
   });
   return (
     <div className="overflow-x-auto">
@@ -39,7 +61,7 @@ history, setHistory, user}) => {
         <tbody>
           {getAccounts.map((account, index) => {return (
           <tr key={index} >
-            <th >{index}</th> 
+            <th >{index+1}</th> 
             <td>{account.name}</td> 
             <td>{account.email}</td>
             <td>{account.role}</td>

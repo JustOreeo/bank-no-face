@@ -1,9 +1,13 @@
 /* eslint-disable no-restricted-globals */
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { toast } from "react-toastify";
-
-const AddExpense = ({expenses, setExpenses}) => {
+import useProfile from '../hooks/useProfile';
+import { v4 as uuidv4 } from 'uuid';
+const AddExpense = ({expenses, setExpenses,userInfo}) => {
+    const {user} = useProfile();
+    console.log("addexpense: ",user.email)   
     // input field states
+    console.log("asan ka user: ",userInfo)
     const [expenseName, setExpenseName]=useState('');
     const [category, setCategory]=useState('');
     const [amount, setAmount]=useState('');
@@ -19,7 +23,7 @@ const AddExpense = ({expenses, setExpenses}) => {
           });
         }
     };
-    
+
     // form submit event
     const handleAddExpenseSubmit = async (e) => {
         e.preventDefault();
@@ -29,7 +33,10 @@ const AddExpense = ({expenses, setExpenses}) => {
             category,
             amount
         }
-
+        //add user email
+        expense.id=uuidv4()
+        expense.email=user.email
+        expense.amount=parseInt(expense.amount)
         if (!expenseName || !category || !amount) {
             showToastMessage(false);
             return
@@ -38,7 +45,9 @@ const AddExpense = ({expenses, setExpenses}) => {
         showToastMessage(true)
         setExpenseName('');
         setCategory('');
-        setAmount('');  
+        setAmount('');
+        
+         
     }
 
     return (
