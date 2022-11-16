@@ -2,7 +2,7 @@
 import React, { useState,useEffect } from 'react';
 import { toast } from "react-toastify";
 import useProfile from '../hooks/useProfile';
-import uuid from 'react-uuid';
+import { v4 as uuidv4 } from 'uuid';
 const AddExpense = ({expenses, setExpenses,userInfo}) => {
     const {user} = useProfile();
     console.log("addexpense: ",user.email)   
@@ -34,7 +34,7 @@ const AddExpense = ({expenses, setExpenses,userInfo}) => {
             amount
         }
         //add user email
-        expense.id=uuid()
+        expense.id=uuidv4()
         expense.email=user.email
         expense.amount=parseInt(expense.amount)
         if (!expenseName || !category || !amount) {
