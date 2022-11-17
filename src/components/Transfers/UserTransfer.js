@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Dialog from "../common/Dialog";
 import CardManager from "../common/CardManager";
 
-const UserTransfer = (userInfo = { userInfo }) => {
+const UserTransfer = ({ userInfo }) => {
   const storedAccounts = JSON.parse(localStorage.getItem("users"));
   let getUser = JSON.parse(localStorage.getItem("loggedInUser"));
 
