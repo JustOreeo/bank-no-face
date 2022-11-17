@@ -444,6 +444,9 @@ table * {
 .main-nav ul li:has(.fa-wallet)::before {
   content: "Expenses";
 }
+.main-nav ul li:has(.fa-user-group)::before {
+  content: "Recipient";
+}
 .main-nav button:has(.fa-right-from-bracket)::before {
   content: "Logout";
 }
@@ -575,7 +578,10 @@ table * {
   li:is(:has(a[href="/create-account"]), :has([href="/users"])) {
   display: none;
 }
-[data-role="admin"] li:is(:has(a[href="/expenses"]), :has([href="/users"])) {
+
+[data-role="admin"]
+  li:is(:has(a[href="/expenses"]), :has([href="/users"]),:has([href="/recipients"])) {
+
   display: none;
 }
 .green-button.view-more {

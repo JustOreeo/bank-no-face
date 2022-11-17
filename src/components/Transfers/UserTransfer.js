@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React,{useState,useEffect} from 'react'
+import { sideMenu } from "../../constants/sideMenu";
+import { NavLink } from "react-router-dom";
 import Dialog from "../common/Dialog";
 import CardManager from "../common/CardManager";
 
 const UserTransfer = ({ userInfo }) => {
   const storedAccounts = JSON.parse(localStorage.getItem("users"));
   let getUser = JSON.parse(localStorage.getItem("loggedInUser"));
-
+  const menuItem = sideMenu;
   const [dialogue, setDialogue] = useState({
     message: "",
     isLoading: false,
@@ -187,6 +189,21 @@ const UserTransfer = ({ userInfo }) => {
         <div className="transfer-section">
           <div className="flex flex-col ">
             {/* <div>Balance: {sourceBalance}</div> */}
+               <label className='text-xs'>Select from a recipient</label>
+                <select className="select w-full max-w-xs" onChange={targetRecipientHandler}>
+                   <option>Select from a recipient</option>
+                    {storedRecipients.map((recipient) => { return(
+                        <option key={recipient.id} value={recipient.recipientEmail} >{recipient.recipientName}</option>
+                    )})}
+                  
+                {storedRecipients.length===0&& <option>No recipients yet</option>}
+                </select>
+               
+                {storedRecipients.length===0&& 
+                    <NavLink className="" to={menuItem[7].path}>
+                    Add Recipient
+                    </NavLink>
+                }
             <input
               placeholder="Transfer to"
               onChange={(e) => emailHandler(e)}
