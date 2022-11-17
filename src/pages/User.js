@@ -8,7 +8,7 @@ const User = ({ userInfo }) => {
 
   return (
     <div className="user-page">
-      <h2>User</h2>
+      {/* <h2>User</h2> */}
       <CardManager userInfo={userInfo} />
       <AccountDetails userInfo={userInfo} />
       <Transactions userInfo={userInfo} />

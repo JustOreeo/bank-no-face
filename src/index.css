@@ -575,8 +575,7 @@ table * {
   li:is(:has(a[href="/create-account"]), :has([href="/users"])) {
   display: none;
 }
-[data-role="admin"]
-  li:is(:has(a[href="/expenses"]), :has([href="/users"])) {
+[data-role="admin"] li:is(:has(a[href="/expenses"]), :has([href="/users"])) {
   display: none;
 }
 .green-button.view-more {
@@ -1164,8 +1163,9 @@ table * {
 
 /* transfers page */
 
-.transfers-page {
-  width: 100%;
+.admin-transfers {
+  width: min(1000px, 90%);
+  margin-inline: auto;
 
   display: flex;
   flex-flow: row wrap;
@@ -1174,7 +1174,7 @@ table * {
   gap: 2rem;
 }
 
-.transfers-page > * {
+.admin-transfers > * {
   flex-grow: 1;
   flex-shrink: 0;
   width: min(350px, 90%);
@@ -1185,8 +1185,8 @@ table * {
   align-items: stretch;
   gap: 0.5rem;
 }
-.transfers-page h1,
-.transfers-page .transfer-buttons label {
+.admin-transfers h1,
+.admin-transfers .transfer-buttons label {
   text-align: center;
   margin: 1rem;
 
@@ -1194,7 +1194,7 @@ table * {
   font-weight: 800;
   font-size: 1.2rem;
 }
-.transfers-page .transfer-buttons label {
+.admin-transfers .transfer-buttons label {
   margin-block-end: 0rem;
 }
 .source-acc,
@@ -1240,7 +1240,7 @@ table * {
   content: "balance (₱): ";
 }
 
-.transfers-page .divider {
+.admin-transfers .divider {
   flex-grow: 0;
   width: 1px;
   min-height: 100px;
@@ -1270,4 +1270,37 @@ table * {
   border-radius: 5px;
 
   width: min(500px, 90%);
+}
+
+/* user transfers */
+
+.user-transfers {
+  display: grid;
+  grid-template-columns: 0.51fr 0.5fr 0.5fr;
+  grid-auto-rows: auto;
+
+  gap: 1rem;
+}
+
+.user-transfers .component-header {
+  grid-area: 1 / 1 / span 1 / span 3;
+}
+
+.transfer-section {
+  width: min(420px, 90%);
+  place-self: center;
+}
+
+@media (max-width: 1000px) {
+  .user-transfers {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+  .transfer-section {
+    width: min(420px, 90%);
+    place-self: flex-start;
+  }
 }

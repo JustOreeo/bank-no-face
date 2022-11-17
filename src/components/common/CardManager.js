@@ -1,7 +1,7 @@
 import React from "react";
 import { sideMenu } from "../../constants/sideMenu";
 import { NavLink } from "react-router-dom";
-const CardManager = ({ userInfo }) => {
+const CardManager = ({ userInfo, ...props }) => {
   const menuItem = sideMenu;
   const { balance } = userInfo;
   const currencyFormatted = (value) =>
@@ -30,7 +30,11 @@ const CardManager = ({ userInfo }) => {
           </p>
           <p className="account-balance-label">Available Balance</p>
           <p className="account-balance">
-            {balance > 0 ? currencyFormatted(balance) : "₱ 0.00"}
+            {props.sourceBalance
+              ? currencyFormatted(props.sourceBalance)
+              : balance > 0
+              ? currencyFormatted(balance)
+              : "₱ 0.00"}
           </p>
         </div>
         <div className={`${face === true ? "back" : "front"} card-face b`}>
@@ -45,7 +49,7 @@ const CardManager = ({ userInfo }) => {
         </div>
       </div>
       <NavLink className="manage-link" to={menuItem[4].path}>
-        Manage Card 
+        Manage Card
       </NavLink>
     </div>
   );
