@@ -138,9 +138,10 @@ const UserTransfer = ({ userInfo }) => {
   const transferHandler = (e) => {
     handleDialog("transfer?", true);
   };
+  console.log("check:", storedAccounts);
 
-  const transferConfirmation = (transferChoice) => {
-    if (transferChoice) {
+  const transferConfirmation = (transferConfirm) => {
+    if (transferConfirm) {
       setError("");
       if (input === "" || targetEmail === "") {
         alert("Please enter to all fields to proceed");
@@ -175,15 +176,14 @@ const UserTransfer = ({ userInfo }) => {
       handleDialog("", false);
     } else {
       handleDialog("", false);
-      return;
     }
   };
-  console.log("check:", storedAccounts);
+
   return (
     <>
       <div className="user-transfers">
         <h2 className="component-header">Transfer</h2>
-        <CardManager userInfo={userInfo} />
+        <CardManager userInfo={userInfo} sourceBalance={sourceBalance} />
         <div className="transfer-section">
           <div className="flex flex-col ">
             {/* <div>Balance: {sourceBalance}</div> */}
