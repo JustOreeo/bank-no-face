@@ -4,6 +4,7 @@ import Button from "../components/common/Button";
 import Input from "../components/common/Input";
 import { createAccountFields } from "../constants/formFields";
 import "../assets/Register.css";
+import Dialog from "../components/common/Dialog";
 
 const fields = createAccountFields;
 let fieldsState = {};
@@ -11,6 +12,14 @@ fields.forEach((field) => (fieldsState[field.id] = ""));
 console.log("Fields: ", fields);
 
 const CreateAccount = () => {
+  const [dialogue, setDialogue] = useState({
+    message: "",
+    isLoading: false,
+  });
+  const handleDialog = (message, isLoading) => {
+    setDialogue({ message, isLoading });
+  };
+
   const navigate = useNavigate();
   const [createAccountState, setCreateAccountState] = useState(fieldsState);
   const userHistory = JSON.parse(localStorage.getItem("users"));
@@ -26,31 +35,42 @@ const CreateAccount = () => {
     setCreateAccountState({ ...createAccountState, [name]: value });
   };
 
-  const handleSubmit = async () => {
-    let found = false;
-    console.log("History", userHistory);
-    console.log("State", createAccountState);
-    console.log("State Email", createAccountState.email);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    handleDialog("create?", true);
+  };
 
-    //Checks if user already exists
-    userHistory.forEach((user) => {
-      if (user.email === createAccountState.email) {
-        console.log("user exists");
-        setCreateAccError("User Already Exists");
-        found = true;
-        return
+  const createConfirmation = (transferChoice) => {
+    if (transferChoice) {
+      let found = false;
+      console.log("History", userHistory);
+      console.log("State", createAccountState);
+      console.log("State Email", createAccountState.email);
+
+      //Checks if user already exists
+      userHistory.forEach((user) => {
+        if (user.email === createAccountState.email) {
+          console.log("user exists");
+          setCreateAccError("User Already Exists");
+          found = true;
+          return;
+        }
+      });
+
+      if (!found) {
+        setCreateAccError("");
+        //make balance into integer
+        createAccountState.balance = parseInt(createAccountState.balance);
+        createAccountState.role = "User";
+        createAccountState.dateCreated = new Date().toLocaleDateString();
+        userHistory.push(createAccountState);
+        localStorage.setItem("users", JSON.stringify(userHistory));
+        navigate("/users");
       }
-    });
-
-    if (!found) {
-      setCreateAccError("");
-      //make balance into integer
-      createAccountState.balance = parseInt(createAccountState.balance);
-      createAccountState.role = "User";
-      createAccountState.dateCreated = new Date().toLocaleDateString();
-      userHistory.push(createAccountState);
-      localStorage.setItem("users", JSON.stringify(userHistory));
-      navigate("/users");
+      handleDialog("", false);
+    } else {
+      handleDialog("", false);
+      return;
     }
   };
 
@@ -81,6 +101,9 @@ const CreateAccount = () => {
         </form>
         <span className="errorMsg">{createAccError}</span>
       </div>
+      {dialogue.isLoading && (
+        <Dialog onDialog={createConfirmation} message={dialogue.message} />
+      )}
     </>
   );
 };

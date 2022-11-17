@@ -30,7 +30,6 @@ const Sidebar = () => {
 
   const handleLogout = () => {
     handleDialog("logout?", true);
-    //localStorage.removeItem("loggedIn");
   };
 
     return (
