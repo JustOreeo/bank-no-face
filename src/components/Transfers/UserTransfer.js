@@ -1,11 +1,13 @@
 import React,{useState,useEffect} from 'react'
-
+import { sideMenu } from "../../constants/sideMenu";
+import { NavLink } from "react-router-dom";
 const UserTransfer = () => {
     const storedAccounts=JSON.parse(localStorage.getItem("users"));
     let getUser = JSON.parse(localStorage.getItem('loggedInUser'))
-
+    const storedRecipients=JSON.parse(localStorage.getItem("recipients"));
     //check if history from local storage is not empty
     const checkHistory=JSON.parse(localStorage.getItem("history"));
+    const menuItem = sideMenu;
     let setUserHistory=[];
     if(checkHistory){
         setUserHistory=checkHistory
@@ -145,13 +147,40 @@ const UserTransfer = () => {
    
     }
     console.log("check:",storedAccounts)
+    //if recipient is empty
+    if (storedRecipients === null) {
+        localStorage.setItem("recipients", JSON.stringify([]));
+    }
+    const targetRecipientHandler = (e) => {   
+        const targetUser = e.target.value
+        console.log("target",targetUser)
+        setTargetEmail(targetUser)
+    
+    }
+    console.log(storedRecipients)
+    
     return (
         <>
         <div>
             <h2 className="component-header">Transfer</h2>
             <div className='flex flex-col'>
                 <div>Balance: {sourceBalance}</div>
-                <input placeholder='Transfer to'  onChange={e => emailHandler(e)} type='text' className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-green-600 focus:outline-none'/>
+                <label className='text-xs'>Select from a recipient</label>
+                <select className="select w-full max-w-xs" onChange={targetRecipientHandler}>
+                   <option>Select from a recipient</option>
+                    {storedRecipients.map((recipient) => { return(
+                        <option key={recipient.id} value={recipient.recipientEmail} >{recipient.recipientName}</option>
+                    )})}
+                  
+                {storedRecipients.length===0&& <option>No recipients yet</option>}
+                </select>
+               
+                {storedRecipients.length===0&& 
+                    <NavLink className="" to={menuItem[7].path}>
+                    Add Recipient
+                    </NavLink>
+                }
+                <input placeholder='Transfer to'  value={targetEmail} onChange={e => emailHandler(e)} type='text' className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-green-600 focus:outline-none'/>
                 <div>{error}</div>
                 <div className='pt-5 pb-5'>
                     <input maxLength='6' placeholder='Amount' value={input} type='text' onChange={e => inputHandler(e)} className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-green-600 focus:outline-none'/>

@@ -46,7 +46,9 @@ const Sidebar = () => {
                                 ${item.name==="Users" ? "fa-solid fa-users-gear" : ""}
                                 ${item.name==="Manage" ? "fa-solid fa-vault" : ""}
                                 ${item.name==="Transfers" ? "fa-solid fa-money-bill-transfer" : ""}
-                                ${item.name==="Expenses" ? "fa-solid fa-wallet" : ""}`
+                                ${item.name==="Expenses" ? "fa-solid fa-wallet" : ""}
+                                ${item.name==="Recipients" ? "fa-solid fa-user-group" : ""}`
+                                
                                 }>
                             </i>
                         </NavLink>

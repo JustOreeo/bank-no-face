@@ -9,6 +9,7 @@ import Transfers from './pages/Transfers';
 import Manage from './pages/Manage';
 import Transaction from './pages/Transaction';
 import Expense from './pages/Expense';
+import Recipients from './pages/Recipients';
 const App = () => {
     return (
         <>
@@ -24,6 +25,7 @@ const App = () => {
                         <Route path="/manage" element={<Manage />} />
                         <Route path="/transfers" element={<Transfers />} />
                         <Route path="/expenses" element={<Expense />} />
+                        <Route path="/recipients" element={<Recipients />} />
                     </Route>
                 </Routes>
             </BrowserRouter>
