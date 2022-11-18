@@ -7,6 +7,7 @@ import CardManager from "../common/CardManager";
 const UserTransfer = ({ userInfo }) => {
   const storedAccounts = JSON.parse(localStorage.getItem("users"));
   let getUser = JSON.parse(localStorage.getItem("loggedInUser"));
+  const storedRecipients=JSON.parse(localStorage.getItem("recipients"));
   const menuItem = sideMenu;
   const [dialogue, setDialogue] = useState({
     message: "",
@@ -180,7 +181,18 @@ const UserTransfer = ({ userInfo }) => {
       handleDialog("", false);
     }
   };
+  
+   //if recipient is empty
+   if (storedRecipients === null) {
+    localStorage.setItem("recipients", JSON.stringify([]));
+  }
+  const targetRecipientHandler = (e) => {   
+      const targetUser = e.target.value
+      console.log("target",targetUser)
+      setTargetEmail(targetUser)
 
+  }
+  console.log(storedRecipients)
   return (
     <>
       <div className="user-transfers">
