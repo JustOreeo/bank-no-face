@@ -49,7 +49,7 @@ const depositHandler = () => {
       receiver: `${email}`, 
       }
     ])
-    toast.success('Deposit Successfull', {
+    toast.success('Deposit Successful', {
       position: toast.POSITION.TOP_RIGHT
     });
   }

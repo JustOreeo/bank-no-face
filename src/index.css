@@ -580,7 +580,7 @@ table * {
 }
 
 [data-role="admin"]
-  li:is(:has(a[href="/expenses"]), :has([href="/users"]),:has([href="/recipients"])) {
+  li:is(:has(a[href="/expenses"]),:has([href="/recipients"])) {
 
   display: none;
 }
