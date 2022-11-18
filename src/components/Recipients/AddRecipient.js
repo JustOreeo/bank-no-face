@@ -11,7 +11,7 @@ const AddRecipient = ({recipients, setRecipients,userInfo}) => {
     const [recipientEmail, setRecipientEmail]=useState('');
     const [category, setCategory]=useState('');
 
-    const showToastMessage = (isSuccess) => {
+    /*const showToastMessage = (isSuccess) => {
         if(isSuccess === true) {
           toast.success('Recipient Added Successfully!', {
               position: toast.POSITION.TOP_RIGHT
@@ -28,7 +28,7 @@ const AddRecipient = ({recipients, setRecipients,userInfo}) => {
             }
          
         }
-    };
+    };*/
 
     // form submit events
     const handleAddRecipientsubmit = async (e) => {
@@ -50,26 +50,27 @@ const AddRecipient = ({recipients, setRecipients,userInfo}) => {
                 return
             }     
             });
-            if(found===true){
-                console.log("User exists");
-
-                if (!recipientName ||!recipientEmail|| !category) {
-                    showToastMessage(false);
-                    return
-                }
-                await setRecipients([...recipients,recipient]);
-                showToastMessage(true)
-                setRecipientName('');
-                setRecipientEmail('');
-                setCategory('');
-
-            }else{
-               showToastMessage("User does not exists");
-               return
-            }  
-        
-        
-         
+            if (!recipientName ||!recipientEmail|| !category) {
+                toast.error('Please enter to all fields to proceed', {
+                    position: toast.POSITION.TOP_RIGHT
+                });
+            }
+            else if(found===false){
+                toast.error('User does not exists', {
+                    position: toast.POSITION.TOP_RIGHT
+                });
+            }
+            else{
+                if(found===true){
+                    await setRecipients([...recipients,recipient]);
+                    toast.success('Recipient Added Successfully', {
+                        position: toast.POSITION.TOP_RIGHT
+                    });
+                    setRecipientName('');
+                    setRecipientEmail('');
+                    setCategory('');
+                }  
+            }
     }
 
     return (
