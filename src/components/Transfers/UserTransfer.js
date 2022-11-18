@@ -181,7 +181,7 @@ const UserTransfer = ({ userInfo }) => {
                 receiver: `${targetEmail}`, 
                 }
                 ])  
-                toast.success('Transfer Successfull', {
+                toast.success('Transfer Successful', {
                   position: toast.POSITION.TOP_RIGHT
                 });
                 

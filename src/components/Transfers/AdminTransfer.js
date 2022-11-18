@@ -141,7 +141,7 @@ const AdminTransfer = () => {
             receiver: `${targetEmail}`,
           },
         ]);
-        toast.success('Transfer Successfull', {
+        toast.success('Transfer Successful', {
           position: toast.POSITION.TOP_RIGHT
         });
       }

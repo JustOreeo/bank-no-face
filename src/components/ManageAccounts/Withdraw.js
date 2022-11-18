@@ -64,7 +64,7 @@ const withdrawHandler = () => {
         receiver: `${email}`, 
       }
     ])
-    toast.success('Withdraw Successfull', {
+    toast.success('Withdraw Successful', {
       position: toast.POSITION.TOP_RIGHT
     });
   }

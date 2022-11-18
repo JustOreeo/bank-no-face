@@ -11,25 +11,6 @@ const AddRecipient = ({recipients, setRecipients,userInfo}) => {
     const [recipientEmail, setRecipientEmail]=useState('');
     const [category, setCategory]=useState('');
 
-    /*const showToastMessage = (isSuccess) => {
-        if(isSuccess === true) {
-          toast.success('Recipient Added Successfully!', {
-              position: toast.POSITION.TOP_RIGHT
-          });
-        } else {
-            if(isSuccess==="User does not exists"){
-                toast.error('User does not exists!', {
-                    position: toast.POSITION.TOP_RIGHT
-                });
-            }else{
-                toast.error('Please complete all fields!', {
-                    position: toast.POSITION.TOP_RIGHT
-                });
-            }
-         
-        }
-    };*/
-
     // form submit events
     const handleAddRecipientsubmit = async (e) => {
         e.preventDefault();

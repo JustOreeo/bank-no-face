@@ -73,7 +73,7 @@ const CreateAccount = () => {
           createAccountState.dateCreated = new Date().toLocaleDateString();
           userHistory.push(createAccountState);
           localStorage.setItem("users", JSON.stringify(userHistory));
-          toast.success('User is Successfully created', {
+          toast.success('User Acccount Created Successfully', {
             position: toast.POSITION.TOP_RIGHT
           });
           navigate("/users");
