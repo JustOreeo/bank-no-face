@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import SourceAccount from "./SourceAccount";
 import TargetAccount from "./TargetAccount";
 import Dialog from "../common/Dialog";
+import { toast } from "react-toastify";
 const AdminTransfer = () => {
   const [dialogue, setDialogue] = useState({
     message: "",
@@ -105,20 +106,26 @@ const AdminTransfer = () => {
 
   const transferConfirmation = (transferChoice) => {
     if (transferChoice) {
-      if (input === "") {
-        alert("Please enter an amount to proceed");
+      if (input === ''){
+        toast.error('Please enter to all fields to proceed', {
+          position: toast.POSITION.TOP_RIGHT
+        });
       } else if (input < 500) {
-        alert(
-          "Minimum transfer amount reached. Please enter an amount that is equal or greater than 500 pesos"
-        );
-      } else if (input > 500000) {
-        alert(
-          "Maximum transfer amount reached. Please enter an amount that is equal or lower than 500000 pesos"
-        );
-      } else if (sourceEmail === targetEmail && input > 500 && input < 500000) {
-        alert(
-          "Source account is the same as the target account. Please select a different target account"
-        );
+          toast.error('Minimum transfer amount reached. Please enter an amount that is equal or greater than 500 pesos', {
+            position: toast.POSITION.TOP_RIGHT
+          });
+      } else if (input >500000) {
+        toast.error('Maximum transfer amount reached. Please enter an amount that is equal or lower than 500000 pesos', {
+          position: toast.POSITION.TOP_RIGHT
+        });
+      } else if(sourceBalance<input){
+        toast.error('Not Enough Balance', {
+          position: toast.POSITION.TOP_RIGHT
+        });
+      }else if(sourceEmail === targetEmail && input > 500 && input < 500000){
+        toast.error('Source account is the same as the target account. Please select a different target account', {
+          position: toast.POSITION.TOP_RIGHT
+        });
       } else {
         setSourceBalance(sourceBalance - parseInt(input));
         setTargetBalance(targetBalance + parseInt(input));
@@ -134,6 +141,9 @@ const AdminTransfer = () => {
             receiver: `${targetEmail}`,
           },
         ]);
+        toast.success('Transfer Successfull', {
+          position: toast.POSITION.TOP_RIGHT
+        });
       }
       handleDialog("", false);
     } else {

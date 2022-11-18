@@ -3,6 +3,7 @@ import { sideMenu } from "../../constants/sideMenu";
 import { NavLink } from "react-router-dom";
 import Dialog from "../common/Dialog";
 import CardManager from "../common/CardManager";
+import { toast } from "react-toastify";
 
 const UserTransfer = ({ userInfo }) => {
   const storedAccounts = JSON.parse(localStorage.getItem("users"));
@@ -145,43 +146,52 @@ const UserTransfer = ({ userInfo }) => {
 
   const transferConfirmation = (transferConfirm) => {
     if (transferConfirm) {
-      setError("");
-      if (input === "" || targetEmail === "") {
-        alert("Please enter to all fields to proceed");
-      } else if (input < 500) {
-        alert(
-          "Minimum transfer amount reached. Please enter an amount that is equal or greater than 500 pesos"
-        );
-      } else if (input > 500000) {
-        alert(
-          "Maximum transfer amount reached. Please enter an amount that is equal or lower than 500000 pesos"
-        );
-      } else if (sourceEmail === targetEmail && input > 500 && input < 500000) {
-        alert(
-          "Source account is the same as the target account. Please select a different target account"
-        );
-      } else {
-        setSourceBalance(sourceBalance - parseInt(input));
-        setTargetBalance(targetBalance + parseInt(input));
-        setHistory([
-          ...history,
-          {
-            createdby: `${user}`,
-            date: `${dateStamp}`,
-            time: `${timeStamp}`,
-            type: "Transfer",
-            amount: `${enteredAmount}`,
-            sender: `${user}`,
-            receiver: `${targetEmail}`,
-          },
-        ]);
+        setError("")
+        if (input === ''||targetEmail===''){
+          toast.error('Please enter to all fields to proceed', {
+            position: toast.POSITION.TOP_RIGHT
+          });
+        } else if (input < 500) {
+            toast.error('Minimum transfer amount reached. Please enter an amount that is equal or greater than 500 pesos', {
+              position: toast.POSITION.TOP_RIGHT
+            });
+        } else if (input >500000) {
+          toast.error('Maximum transfer amount reached. Please enter an amount that is equal or lower than 500000 pesos', {
+            position: toast.POSITION.TOP_RIGHT
+          }); 
+        } else if(sourceBalance<input){
+          toast.error('Not Enough Balance', {
+            position: toast.POSITION.TOP_RIGHT
+          });
+        }else if(sourceEmail === targetEmail && input > 500 && input < 500000){
+          toast.error('Source account is the same as the target account. Please select a different target account', {
+            position: toast.POSITION.TOP_RIGHT
+          });
+        }else{
+                setSourceBalance(sourceBalance - parseInt(input))
+                setTargetBalance(targetBalance + parseInt(input))
+                setHistory([
+                ...history,
+                {createdby: `${user}`,
+                date: `${dateStamp}`, 
+                time:`${timeStamp}`, 
+                type:'Transfer', 
+                amount: `${enteredAmount}`, 
+                sender: `${user}`, 
+                receiver: `${targetEmail}`, 
+                }
+                ])  
+                toast.success('Transfer Successfull', {
+                  position: toast.POSITION.TOP_RIGHT
+                });
+                
       }
       handleDialog("", false);
     } else {
       handleDialog("", false);
     }
   };
-  
+
    //if recipient is empty
    if (storedRecipients === null) {
     localStorage.setItem("recipients", JSON.stringify([]));
@@ -199,30 +209,32 @@ const UserTransfer = ({ userInfo }) => {
         <h2 className="component-header">Transfer</h2>
         <CardManager userInfo={userInfo} sourceBalance={sourceBalance} />
         <div className="transfer-section">
+        <label className='text-xs'>Select from a recipient</label>
           <div className="flex flex-col ">
             {/* <div>Balance: {sourceBalance}</div> */}
-               <label className='text-xs'>Select from a recipient</label>
-                <select className="select w-full max-w-xs" onChange={targetRecipientHandler}>
-                   <option>Select from a recipient</option>
-                    {storedRecipients.map((recipient) => { return(
-                        <option key={recipient.id} value={recipient.recipientEmail} >{recipient.recipientName}</option>
-                    )})}
-                  
-                {storedRecipients.length===0&& <option>No recipients yet</option>}
-                </select>
-               
-                {storedRecipients.length===0&& 
-                    <NavLink className="" to={menuItem[7].path}>
-                    Add Recipient
-                    </NavLink>
-                }
-            <input
-              placeholder="Transfer to"
-              onChange={(e) => emailHandler(e)}
-              type="text"
-              className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-green-600 focus:outline-none"
-            />
-
+              <div className='flex flex-row'>
+                  <select className="select w-full max-w-xs" onChange={targetRecipientHandler}>
+                    <option>Select from a recipient</option>
+                      {storedRecipients.map((recipient) => { return(
+                          <option key={recipient.id} value={recipient.recipientEmail} >{recipient.recipientName}</option>
+                      )})}
+                    
+                  {storedRecipients.length===0&& <option>No recipients yet</option>}
+                  </select>
+                
+                  <NavLink className="green-button view-more mx-1" to={menuItem[7].path}>
+                  Add Recipient
+                  </NavLink>
+                </div>
+            <div className='pt-5 pb-5'>
+              <input
+                placeholder="Transfer to"
+                value={targetEmail}
+                onChange={(e) => emailHandler(e)}
+                type="text"
+                className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-green-600 focus:outline-none"
+              />
+            </div>
             <div className="pt-5 pb-5">
               <input
                 maxLength="6"

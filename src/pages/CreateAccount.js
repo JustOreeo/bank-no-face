@@ -5,7 +5,7 @@ import Input from "../components/common/Input";
 import { createAccountFields } from "../constants/formFields";
 import "../assets/Register.css";
 import Dialog from "../components/common/Dialog";
-
+import { toast } from "react-toastify";
 const fields = createAccountFields;
 let fieldsState = {};
 fields.forEach((field) => (fieldsState[field.id] = ""));
@@ -23,11 +23,6 @@ const CreateAccount = () => {
   const navigate = useNavigate();
   const [createAccountState, setCreateAccountState] = useState(fieldsState);
   const userHistory = JSON.parse(localStorage.getItem("users"));
-  const [createAccError, setCreateAccError] = useState("");
-  //can't be null because of admin user
-  /*if (userHistory === null) {
-    localStorage.setItem("users", JSON.stringify([]));
-  }*/
 
   // Automatically handle the input state
   const handleChange = (e) => {
@@ -51,22 +46,40 @@ const CreateAccount = () => {
       userHistory.forEach((user) => {
         if (user.email === createAccountState.email) {
           console.log("user exists");
-          setCreateAccError("User Already Exists");
           found = true;
           return;
         }
       });
-
-      if (!found) {
-        setCreateAccError("");
-        //make balance into integer
-        createAccountState.balance = parseInt(createAccountState.balance);
-        createAccountState.role = "User";
-        createAccountState.dateCreated = new Date().toLocaleDateString();
-        userHistory.push(createAccountState);
-        localStorage.setItem("users", JSON.stringify(userHistory));
-        navigate("/users");
+      if(createAccountState.name===''||createAccountState.email===''||createAccountState.password===''||createAccountState.balance===''){
+        toast.error('Please enter to all fields to proceed', {
+          position: toast.POSITION.TOP_RIGHT
+        });
       }
+      else if(found){
+        toast.error('User Already Exists', {
+          position: toast.POSITION.TOP_RIGHT
+        });
+      }
+      else if(createAccountState.balance<0){
+        toast.error('Balance cannot be negative', {
+          position: toast.POSITION.TOP_RIGHT
+      });
+      }
+      else{
+        if (!found) {
+          //make balance into integer
+          createAccountState.balance = parseInt(createAccountState.balance);
+          createAccountState.role = "User";
+          createAccountState.dateCreated = new Date().toLocaleDateString();
+          userHistory.push(createAccountState);
+          localStorage.setItem("users", JSON.stringify(userHistory));
+          toast.success('User is Successfully created', {
+            position: toast.POSITION.TOP_RIGHT
+          });
+          navigate("/users");
+        } 
+      }
+     
       handleDialog("", false);
     } else {
       handleDialog("", false);
@@ -99,7 +112,6 @@ const CreateAccount = () => {
           </div>
           <Button handleSubmit={handleSubmit} text="Create Account" />
         </form>
-        <span className="errorMsg">{createAccError}</span>
       </div>
       {dialogue.isLoading && (
         <Dialog onDialog={createConfirmation} message={dialogue.message} />
